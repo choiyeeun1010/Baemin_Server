@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c438a9c2-183e-46b1-ad19-05d53c369a36" name="spring" url="http://yenie.site">
+        <fileTransfer rootFolder="/var/www/spring" accessType="SFTP" host="13.209.137.179" port="22" sshConfigId="3fe7e924-c8ed-40f7-9892-b8782105f280" sshConfig="ubuntu@13.209.137.179:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
