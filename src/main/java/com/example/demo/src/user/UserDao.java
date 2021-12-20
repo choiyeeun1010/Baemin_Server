@@ -20,7 +20,7 @@ public class UserDao {
     }
 
     public List<GetUserRes> getUsers(){
-        String getUsersQuery = "select * from User";
+        String getUsersQuery = "select userIdx, userID, userName, password, userEmail from User";
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
