@@ -40,5 +40,7 @@ com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
 com/example/demo/src/test/TestController.java
  com.example.demo.src.test.TestController
+com/example/demo/src/user/model/GetUserMain.java
+ com.example.demo.src.user.model.GetUserMain
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider

@@ -56,7 +56,21 @@ public class UserDao {
                         rs.getString("userEmail")),
                 getUserParams);
     }
-    
+
+    public GetUserMain getUserMain(int userIdx){
+        String getUserMainQuery = "select u.userIdx, u.addressName, s.categoryIdx, s.categoryName, s.categoryImage" +
+                "from StoreCategory s, UserAddress u" +
+                "where userIdx = ?";
+        int getUserMainParams = userIdx;
+        return this.jdbcTemplate.queryForObject(getUserMainQuery,
+                (rs, rowNum) -> new GetUserMain(
+                        rs.getInt("userIdx"),
+                        rs.getString("addressName"),
+                        rs.getInt("categoryIdx"),
+                        rs.getString("categoryName"),
+                        rs.getString("categoryImage")),
+                        getUserMainParams);
+    }
 
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, userID, password, userEmail) VALUES (?,?,?,?)";
