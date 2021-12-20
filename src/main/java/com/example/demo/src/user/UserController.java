@@ -106,6 +106,19 @@ public class UserController {
 
     }
 
+    @ResponseBody
+    @GetMapping("/search/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<GetUserSearch>> getUserSearch(@PathVariable("userIdx") int userIdx) {
+        // Get Users
+        try{
+            List<GetUserSearch> getUserSearch = userProvider.getUserSearch(userIdx);
+            return new BaseResponse<>(getUserSearch);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
+
     /**
      * 회원가입 API
      * [POST] /users

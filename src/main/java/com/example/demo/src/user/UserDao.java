@@ -82,6 +82,17 @@ public class UserDao {
                 ), getUserAddressParams);
     }
 
+    public List<GetUserSearch> getUserSearch(int userIdx){
+        String getUserSearchQuery = "select userIdx, searchIdx, searchContents from Search where userIdx = ?";
+        int getUserSearchParams = userIdx;
+        return this.jdbcTemplate.query(getUserSearchQuery,
+                (rs, rowNum) -> new GetUserSearch(
+                        rs.getInt("userIdx"),
+                        rs.getInt("searchIdx"),
+                        rs.getString("searchContents")
+                ), getUserSearchParams);
+    }
+
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, userID, password, userEmail) VALUES (?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserName(), postUserReq.getId(), postUserReq.getPassword(), postUserReq.getEmail()};

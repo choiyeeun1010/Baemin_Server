@@ -78,6 +78,15 @@ public class UserProvider {
         }
     }
 
+    public List<GetUserSearch> getUserSearch(int userIdx) throws BaseException{
+        try {
+            List<GetUserSearch> getUserSearch = userDao.getUserSearch(userIdx);
+            return getUserSearch;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);
