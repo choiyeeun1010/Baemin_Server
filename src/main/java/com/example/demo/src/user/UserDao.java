@@ -64,11 +64,11 @@ public class UserDao {
         int getUserMainParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUserMainQuery,
                 (rs, rowNum) -> new GetUserMain(
-                        rs.getInt("userIdx"),
-                        rs.getString("addressName"),
-                        rs.getInt("categoryIdx"),
-                        rs.getString("categoryName"),
-                        rs.getString("categoryImage")),
+                        rs.getInt("u.userIdx"),
+                        rs.getString("u.addressName"),
+                        rs.getInt("s.categoryIdx"),
+                        rs.getString("s.categoryName"),
+                        rs.getString("s.categoryImage")),
                         getUserMainParams);
     }
 
