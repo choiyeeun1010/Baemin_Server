@@ -57,19 +57,29 @@ public class UserDao {
                 getUserParams);
     }
 
-    public GetUserMain getUserMain(int userIdx){
-        String getUserMainQuery = "select u.userIdx, u.addressName, s.categoryIdx, s.categoryName, s.categoryImage " +
-                "from StoreCategory s, UserAddress u " +
-                "where s.userIdx = ?";
+    public List<GetUserMain> getUserMain(int userIdx){
+        String getUserMainQuery = "select u.userIdx, u.addressName, s.categoryIdx, s.categoryName, s.categoryImage from StoreCategory s, UserAddress u where u.userIdx = ?";
         int getUserMainParams = userIdx;
-        return this.jdbcTemplate.queryForObject(getUserMainQuery,
+        return this.jdbcTemplate.query(getUserMainQuery,
                 (rs, rowNum) -> new GetUserMain(
-                        rs.getInt("userIdx"),
-                        rs.getString("addressName"),
-                        rs.getInt("categoryIdx"),
-                        rs.getString("categoryName"),
-                        rs.getString("categoryImage")),
+                        rs.getInt("u.userIdx"),
+                        rs.getString("u.addressName"),
+                        rs.getInt("s.categoryIdx"),
+                        rs.getString("s.categoryName"),
+                        rs.getString("s.categoryImage")),
                 getUserMainParams);
+    }
+
+    public List<GetUserAddress> getUserAddress(int userIdx){
+        String getUserAddressQuery = "select userIdx, userAddressIdx, addressName, address from UserAddress where userIdx = ?";
+        int getUserAddressParams = userIdx;
+        return this.jdbcTemplate.query(getUserAddressQuery,
+                (rs, rowNum) -> new GetUserAddress(
+                        rs.getInt("userIdx"),
+                        rs.getInt("userAddressIdx"),
+                        rs.getString("addressName"),
+                        rs.getString("address")
+                ), getUserAddressParams);
     }
 
     public int createUser(PostUserReq postUserReq){

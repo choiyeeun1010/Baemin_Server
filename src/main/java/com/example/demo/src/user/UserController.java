@@ -78,18 +78,30 @@ public class UserController {
         }
 
     }
-
     @ResponseBody
     @GetMapping("/main/{userIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
-    public BaseResponse<GetUserMain> getUserMain(@PathVariable("userIdx") int userIdx) {
+    public BaseResponse<List<GetUserMain>> getUserMain(@PathVariable("userIdx") int userIdx) {
         // Get Users Main
         try{
-            GetUserMain getUserMain = userProvider.getUserMain(userIdx);
+            List<GetUserMain> getUserMain = (List<GetUserMain>) userProvider.getUserMain(userIdx);
             return new BaseResponse<>(getUserMain);
         } catch(BaseException exception){
             return new BaseResponse
 
                     <>((exception.getStatus()));
+        }
+
+    }
+
+    @ResponseBody
+    @GetMapping("/address/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<GetUserAddress>> getUserAddress(@PathVariable("userIdx") int userIdx) {
+        // Get Users
+        try{
+            List<GetUserAddress> getUserAddress = userProvider.getUserAddress(userIdx);
+            return new BaseResponse<>(getUserAddress);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
         }
 
     }

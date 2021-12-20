@@ -60,10 +60,19 @@ public class UserProvider {
         }
     }
 
-    public GetUserMain getUserMain(int userIdx) throws BaseException {
-        try {
-            GetUserMain getUserMain = userDao.getUserMain(userIdx);
+    public List<GetUserMain> getUserMain(int userIdx) throws BaseException {
+        //try {
+            List<GetUserMain> getUserMain = userDao.getUserMain(userIdx);
             return getUserMain;
+        //} catch (Exception exception) {
+          //  throw new BaseException(DATABASE_ERROR);
+        //}
+    }
+
+    public List<GetUserAddress> getUserAddress(int userIdx) throws BaseException {
+        try {
+            List<GetUserAddress> getUserAddress = userDao.getUserAddress(userIdx);
+            return getUserAddress;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
