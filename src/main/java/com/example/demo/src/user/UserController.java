@@ -87,7 +87,9 @@ public class UserController {
             GetUserMain getUserMain = userProvider.getUserMain(userIdx);
             return new BaseResponse<>(getUserMain);
         } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
+            return new BaseResponse
+
+                    <>((exception.getStatus()));
         }
 
     }
