@@ -93,6 +93,19 @@ public class UserDao {
                 ), getUserSearchParams);
     }
 
+    public List<GetSearchRanking> getSearchRanking(){
+        String getSearchRankingQuery = "select searchContents as \"검색내용\", count(searchContents) as \"검색수\", concat(date_format(now(), '%m.%d %H:00'), ' 기준') as \"기준\"\n" +
+                "from Search\n" +
+                "where createAt < date_format(now(), '%Y-%m-%d %H:00:00')\n" +
+                "group by searchContents\n" +
+                "order by count(searchContents) desc";
+        return this.jdbcTemplate.query(getSearchRankingQuery,
+                (rs, rowNum) -> new GetSearchRanking(
+                        rs.getString("searchContents"),
+                        rs.getString("createAt"))
+                );
+    }
+
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, userID, password, userEmail) VALUES (?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserName(), postUserReq.getId(), postUserReq.getPassword(), postUserReq.getEmail()};

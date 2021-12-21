@@ -87,6 +87,15 @@ public class UserProvider {
         }
     }
 
+    public List<GetSearchRanking> getSearchRanking(int userIdx) throws BaseException{
+        try {
+            List<GetSearchRanking> getSearchRanking = userDao.getSearchRanking();
+            return getSearchRanking;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);
