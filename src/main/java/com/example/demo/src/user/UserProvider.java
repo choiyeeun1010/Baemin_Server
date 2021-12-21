@@ -87,7 +87,7 @@ public class UserProvider {
         }
     }
 
-    public List<GetSearchRanking> getSearchRanking(int userIdx) throws BaseException{
+    public List<GetSearchRanking> getSearchRanking() throws BaseException{
         try {
             List<GetSearchRanking> getSearchRanking = userDao.getSearchRanking();
             return getSearchRanking;

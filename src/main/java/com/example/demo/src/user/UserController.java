@@ -119,6 +119,18 @@ public class UserController {
 
     }
 
+    @ResponseBody
+    @GetMapping("/search") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<GetSearchRanking>> getSearchRanking() {
+        // Get Users
+        try{
+            List<GetSearchRanking> getSearchRanking = userProvider.getSearchRanking();
+            return new BaseResponse<>(getSearchRanking);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
     /**
      * 회원가입 API
      * [POST] /users
