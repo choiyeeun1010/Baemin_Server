@@ -107,6 +107,64 @@ public class UserDao {
                 ));
     }
 
+    public List<GetUserLike> getUserLike(int userIdx){
+        String getUserLikeQuery = "select l.storeIdx,\n" +
+                "       likeState '찜상태',\n" +
+                "       storeName as \'상점명\',\n" +
+                "       image \'상점이미지\',\n" +
+                "       concat('최소주문 ', format(minAmount, 0), '원') \'최소주문금액\',\n" +
+                "       concat('배달팁 ', format(deliveryPrice, 0), '원') \'배달팁\',\n" +
+                "       starGrade \'별점\',\n" +
+                "       reviewCount \'리뷰수\',\n" +
+                "       mainMenu as \'메인메뉴\'\n" +
+                "from LikeStore l\n" +
+                "   join(select s.storeIdx,\n" +
+                "               s.storeName,\n" +
+                "               si.image,\n" +
+                "               deliveryTime,\n" +
+                "               s.minAmount,\n" +
+                "               dp.deliveryPrice,\n" +
+                "               ifnull(w.starGrade,0) as starGrade,\n" +
+                "               ifnull(w.reviewCount, 0) as reviewCount,\n" +
+                "               ifnull(mainMenu, '') as mainMenu\n" +
+                "        from  StoreImage si, DeliveryPrice dp, Store s\n" +
+                "           left join(select storeIdx,\n" +
+                "                            round(sum(scope) / count(storeIdx), 1) as 'starGrade',\n" +
+                "                            count(storeIdx) as 'reviewCount'\n" +
+                "               from UserReview\n" +
+                "               group by storeIdx) as w\n" +
+                "           on s.storeIdx = w.storeIdx\n" +
+                "           left join(select storeIdx, group_concat(menuName separator ', ') as mainMenu\n" +
+                "               from Menu\n" +
+                "               where menuCategoryIdx = '1'\n" +
+                "               group by storeIdx) as x\n" +
+                "           on s.storeIdx = x.storeIdx) as v\n" +
+                "where likeState = 'T' and userIdx = ? ";
+        int getUserLikeParams = userIdx;
+        return this.jdbcTemplate.query(getUserLikeQuery,
+                (rs, rowNum) -> new GetUserLike(
+                        rs.getInt("l.storeIdx"),
+                        rs.getString("찜상태"),
+                        rs.getString("상점명"),
+                        rs.getString("상점이미지"),
+                        rs.getString("최소주문"),
+                        rs.getString("배달팁"),
+                        rs.getFloat("별점"),
+                        rs.getInt("리뷰수"),
+                        rs.getString("메인메뉴")
+                ), getUserLikeParams);
+    }
+
+    private int storeIdx;
+    private String likeState;
+    private String storeName;
+    private String image;
+    private String minAmount;
+    private String deliveryPrice;
+    private float starGrade;
+    private int reviewCount;
+    private String mainMenu;
+
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, userID, password, userEmail) VALUES (?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserName(), postUserReq.getId(), postUserReq.getPassword(), postUserReq.getEmail()};
