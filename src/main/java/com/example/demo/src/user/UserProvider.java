@@ -88,12 +88,21 @@ public class UserProvider {
     }
 
     public List<GetSearchRanking> getSearchRanking() throws BaseException{
-        //try {
+        try {
             List<GetSearchRanking> getSearchRanking = userDao.getSearchRanking();
             return getSearchRanking;
-       // } catch (Exception exception) {
-           // throw new BaseException(DATABASE_ERROR);
-        //}
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetUserLike> getUserLike(int userIdx) throws BaseException{
+        try {
+            List<GetUserLike> getUserLike = userDao.getUserLike(userIdx);
+            return getUserLike;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 
     public int checkEmail(String email) throws BaseException{
