@@ -13,7 +13,7 @@ public class GetStoreList {
     private String image;
     private String storeName;
     private String deliveryTime;
-    private int mainAmount;
+    private int minAmount;
     private int deliveryPrice;
     private float scope;
     private String menuName;

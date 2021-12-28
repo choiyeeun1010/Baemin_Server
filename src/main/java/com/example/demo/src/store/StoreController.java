@@ -55,5 +55,19 @@ public class StoreController {
 
     }
 
+    @ResponseBody
+    @GetMapping("/list") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    public BaseResponse<List<GetStoreList>> getStoreList() {
+        // Get Users Main
+        try{
+            List<GetStoreList> getStoreList = (List<GetStoreList>) storeProvider.getStoreList();
+            return new BaseResponse<>(getStoreList);
+        } catch(BaseException exception){
+            return new BaseResponse
+
+                    <>((exception.getStatus()));
+        }
+
+    }
 
 }

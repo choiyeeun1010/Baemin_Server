@@ -78,5 +78,43 @@ public class StoreDao {
                 ), getStoreMainParams);
     }
 
+    public List<GetStoreList> getStoreList(){
+        String getStoreListQuery = "select s.storeIdx,\n" +
+                "       si.image,\n" +
+                "       s.storeName as \"상점명\",\n" +
+                "       concat(s.deliveryTime, '분') as \"배달시간\",\n" +
+                "       concat('최소주문 ', format(s.minAmount, 0), '원') as \"최소주문금액\",\n" +
+                "       concat('배달팁 ', format(dp.deliveryPrice, 0), '원') as \"배달비\",\n" +
+                "       ifnull(v.startGrade, 0) as starGrade,\n" +
+                "       ifnull(v.reviewCount, 0) as starCount,\n" +
+                "       ifnull(mainMenu, '') as mainMenu\n" +
+                "\n" +
+                "from Store s\n" +
+                "   left join(select storeIdx,\n" +
+                "                    round(sum(scope) / count(storeIdx), 1) as 'startGrade',\n" +
+                "                    count(storeIdx) as 'reviewCount'\n" +
+                "       from UserReview\n" +
+                "       group by storeIdx) as v\n" +
+                "   on s.storeIdx = v.storeIdx\n" +
+                "   left join(select storeIdx, group_concat(menuName separator ', ') as mainMenu\n" +
+                "       from Menu\n" +
+                "       where menuState = 'T' and Menu.menuCategoryIdx=1\n" +
+                "       group by storeIdx) as w\n" +
+                "   on s.storeIdx = w.storeIdx, StoreImage si, DeliveryPrice dp\n" +
+                "where s.storeIdx = si.storeIdx and s.storeIdx = dp.storeIdx ";
 
+        return this.jdbcTemplate.query(getStoreListQuery,
+                (rs,rowNum) -> new GetStoreList(
+                        rs.getInt("storeIdx"),
+                        rs.getString("image"),
+                        rs.getString("storeName"),
+                        rs.getString("deliveryTime"),
+                        rs.getInt("minAmount"),
+                        rs.getInt("deliveryPrice"),
+                        rs.getFloat("scope"),
+                        rs.getString("menuName"),
+                        rs.getString("menuState"),
+                        rs.getInt("methodIdx")
+                ));
+    }
 }
