@@ -32,9 +32,7 @@ public class StoreController {
     private final JwtService jwtService;
 
 
-
-
-    public StoreController(StoreProvider storeProvider, StoreService storeService, JwtService jwtService){
+    public StoreController(StoreProvider storeProvider, StoreService storeService, JwtService jwtService) {
         this.storeProvider = storeProvider;
         this.storeService = storeService;
         this.jwtService = jwtService;
@@ -44,10 +42,10 @@ public class StoreController {
     @GetMapping("/{storeIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
     public BaseResponse<List<GetStoreMain>> getStoreMain(@PathVariable("storeIdx") int storeIdx) {
         // Get Users Main
-        try{
+        try {
             List<GetStoreMain> getStoreMain = (List<GetStoreMain>) storeProvider.getStoreMain(storeIdx);
             return new BaseResponse<>(getStoreMain);
-        } catch(BaseException exception){
+        } catch (BaseException exception) {
             return new BaseResponse
 
                     <>((exception.getStatus()));
@@ -59,10 +57,10 @@ public class StoreController {
     @GetMapping("/list") // (GET) 127.0.0.1:9000/users/main/:userIdx
     public BaseResponse<List<GetStoreList>> getStoreList() {
         // Get Users Main
-        try{
+        try {
             List<GetStoreList> getStoreList = (List<GetStoreList>) storeProvider.getStoreList();
             return new BaseResponse<>(getStoreList);
-        } catch(BaseException exception){
+        } catch (BaseException exception) {
             return new BaseResponse
 
                     <>((exception.getStatus()));
@@ -74,10 +72,25 @@ public class StoreController {
     @GetMapping("/{storeIdx}/intro") // (GET) 127.0.0.1:9000/users/main/:userIdx
     public BaseResponse<List<GetStoreIntro>> getStoreIntro(@PathVariable("storeIdx") int storeIdx) {
         // Get Users Main
-        try{
+        try {
             List<GetStoreIntro> getStoreIntro = (List<GetStoreIntro>) storeProvider.getStoreIntro(storeIdx);
             return new BaseResponse<>(getStoreIntro);
-        } catch(BaseException exception){
+        } catch (BaseException exception) {
+            return new BaseResponse
+
+                    <>((exception.getStatus()));
+        }
+
+    }
+
+    @ResponseBody
+    @GetMapping("/{storeIdx}/info") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    public BaseResponse<List<GetStoreInfo>> getStoreInfo(@PathVariable("storeIdx") int storeIdx) {
+        // Get Users Main
+        try {
+            List<GetStoreInfo> getStoreInfo = (List<GetStoreInfo>) storeProvider.getStoreInfo(storeIdx);
+            return new BaseResponse<>(getStoreInfo);
+        } catch (BaseException exception) {
             return new BaseResponse
 
                     <>((exception.getStatus()));
