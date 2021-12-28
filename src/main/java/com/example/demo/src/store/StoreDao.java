@@ -229,15 +229,15 @@ public class StoreDao {
                 "       m.menuIntro,\n" +
                 "       m.menuCategoryIdx\n" +
                 "from Menu m, MenuImage mi\n" +
-                "where m.menuIdx = mi.menuIdx and s.storeIdx = ? ";
+                "where m.menuIdx = mi.menuIdx and m.storeIdx = ? ";
         int getStoreMenuParams = storeIdx;
         return this.jdbcTemplate.query(getStoreMenuQuery,
                 (rs, rowNum) -> new GetStoreMenu(
                         rs.getInt("menuIdx"),
                         rs.getString("menuPrice"),
-                        rs.getString("menuImage"),
-                        rs.getString("menuIntro"),
-                        rs.getInt("menuCategoryIdx")),
+                        rs.getString("mi.image"),
+                        rs.getString("m.menuIntro"),
+                        rs.getInt("m.menuCategoryIdx")),
                 getStoreMenuParams);
     }
 }
