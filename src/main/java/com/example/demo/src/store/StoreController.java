@@ -88,7 +88,7 @@ public class StoreController {
 
     @ResponseBody
     @GetMapping("/{categoryIdx}/list") // (GET) 127.0.0.1:9000/users/main/:userIdx
-    public BaseResponse<List<GetStoreCategory>> getStoreCategory(@PathVariable("storeIdx") int categoryIdx) {
+    public BaseResponse<List<GetStoreCategory>> getStoreCategory(@PathVariable("categoryIdx") int categoryIdx) {
         try {
             List<GetStoreCategory> getStoreCategory = (List<GetStoreCategory>) storeProvider.getStoreCategory(categoryIdx);
             return new BaseResponse<>(getStoreCategory);

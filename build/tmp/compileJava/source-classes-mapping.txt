@@ -8,8 +8,8 @@ com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
-com/example/demo/src/store/model/GetStoreList.java
- com.example.demo.src.store.model.GetStoreList
+com/example/demo/src/store/model/GetStoreInfo.java
+ com.example.demo.src.store.model.GetStoreInfo
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/user/model/PostLoginRes.java
@@ -58,11 +58,13 @@ com/example/demo/src/store/model/GetStoreIntro.java
  com.example.demo.src.store.model.GetStoreIntro
 com/example/demo/src/user/UserDao.java
  com.example.demo.src.user.UserDao
-com/example/demo/src/store/StoreProvider.java
- com.example.demo.src.store.StoreProvider
+com/example/demo/src/store/model/GetStoreCategory.java
+ com.example.demo.src.store.model.GetStoreCategory
+com/example/demo/src/store/model/GetStoreList.java
+ com.example.demo.src.store.model.GetStoreList
 com/example/demo/src/store/StoreDao.java
  com.example.demo.src.store.StoreDao
+com/example/demo/src/store/StoreProvider.java
+ com.example.demo.src.store.StoreProvider
 com/example/demo/src/store/StoreController.java
  com.example.demo.src.store.StoreController
-com/example/demo/src/store/model/GetStoreInfo.java
- com.example.demo.src.store.model.GetStoreInfo
