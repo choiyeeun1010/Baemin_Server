@@ -147,7 +147,7 @@ public class UserDao {
                         rs.getString("찜상태"),
                         rs.getString("상점명"),
                         rs.getString("상점이미지"),
-                        rs.getString("최소주문"),
+                        rs.getString("최소주문금액"),
                         rs.getString("배달팁"),
                         rs.getFloat("별점"),
                         rs.getInt("리뷰수"),
@@ -155,15 +155,26 @@ public class UserDao {
                 ), getUserLikeParams);
     }
 
-    private int storeIdx;
-    private String likeState;
-    private String storeName;
-    private String image;
-    private String minAmount;
-    private String deliveryPrice;
-    private float starGrade;
-    private int reviewCount;
-    private String mainMenu;
+    public List<GetUserCoupon> getUserCoupon(int userIdx){
+        String getUserCouponQuery = "select c.couponIdx,\n" +
+                "       c.couponName \'쿠폰이름\',\n" +
+                "       c.couponImage \'쿠폰이미지\',\n" +
+                "       concat(format(c.couponPrice, 0), '원') \'쿠폰가격\',\n" +
+                "       concat('최소주문금액 ', format(c.minAmount, 0), '원') \'최소주문금액\',\n" +
+                "       concat('사용기간 ', c.startDate, ' - ', c.endDate) as \'사용기간\'\n" +
+                "from Coupon c, User u\n" +
+                "where c.userIdx = u.userIdx and couponState = 'T' and c.userIdx =  ? ";
+        int getUserCouponParams = userIdx;
+        return this.jdbcTemplate.query(getUserCouponQuery,
+                (rs, rowNum) -> new GetUserCoupon(
+                        rs.getInt("c.couponIdx"),
+                        rs.getString("쿠폰이름"),
+                        rs.getString("쿠폰이미지"),
+                        rs.getString("쿠폰가격"),
+                        rs.getString("최소주문금액"),
+                        rs.getString("사용기간")
+                ), getUserCouponParams);
+    }
 
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, userID, password, userEmail) VALUES (?,?,?,?)";

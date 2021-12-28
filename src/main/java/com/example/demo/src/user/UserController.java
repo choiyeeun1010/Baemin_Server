@@ -141,6 +141,18 @@ public class UserController {
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/{userIdx}/coupon") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<GetUserCoupon>> getUserCoupon(@PathVariable("userIdx") int userIdx) {
+        // Get Users
+        try{
+            List<GetUserCoupon> getUserCoupon = userProvider.getUserCoupon(userIdx);
+            return new BaseResponse<>(getUserCoupon);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
 
     }
 

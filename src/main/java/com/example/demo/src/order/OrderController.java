@@ -48,4 +48,16 @@ public class OrderController {
                     <>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @GetMapping("/{userIdx}/{orderIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    public BaseResponse<List<GetOrderReceipt>> getOrderReceipt(@PathVariable("userIdx") int userIdx, @PathVariable("orderIdx") int orderIdx) {
+        try {
+            List<GetOrderReceipt> getOrderReceipt = (List<GetOrderReceipt>) orderProvider.getOrderReceipt(userIdx, orderIdx);
+            return new BaseResponse<>(getOrderReceipt);
+        } catch (BaseException exception) {
+            return new BaseResponse
+                    <>((exception.getStatus()));
+        }
+    }
 }

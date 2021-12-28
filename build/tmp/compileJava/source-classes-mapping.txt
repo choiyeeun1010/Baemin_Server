@@ -22,8 +22,8 @@ com/example/demo/src/store/model/GetStoreIntro.java
  com.example.demo.src.store.model.GetStoreIntro
 com/example/demo/src/store/model/GetStoreCategory.java
  com.example.demo.src.store.model.GetStoreCategory
-com/example/demo/src/user/UserDao.java
- com.example.demo.src.user.UserDao
+com/example/demo/src/order/OrderController.java
+ com.example.demo.src.order.OrderController
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
 com/example/demo/src/user/model/PatchUserReq.java
@@ -52,12 +52,12 @@ com/example/demo/src/store/StoreController.java
  com.example.demo.src.store.StoreController
 com/example/demo/src/user/model/PostUserRes.java
  com.example.demo.src.user.model.PostUserRes
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
+com/example/demo/src/order/OrderDao.java
+ com.example.demo.src.order.OrderDao
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
-com/example/demo/src/user/UserProvider.java
- com.example.demo.src.user.UserProvider
+com/example/demo/src/order/OrderProvider.java
+ com.example.demo.src.order.OrderProvider
 com/example/demo/src/store/StoreService.java
  com.example.demo.src.store.StoreService
 com/example/demo/src/user/model/User.java
@@ -66,8 +66,8 @@ com/example/demo/src/store/StoreProvider.java
  com.example.demo.src.store.StoreProvider
 com/example/demo/src/user/model/GetUserSearch.java
  com.example.demo.src.user.model.GetUserSearch
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
+com/example/demo/src/order/model/GetOrderReceipt.java
+ com.example.demo.src.order.model.GetOrderReceipt
 com/example/demo/src/user/model/GetUserRes.java
  com.example.demo.src.user.model.GetUserRes
 com/example/demo/config/BaseException.java
@@ -76,9 +76,13 @@ com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
 com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
-com/example/demo/src/order/OrderProvider.java
- com.example.demo.src.order.OrderProvider
-com/example/demo/src/order/OrderDao.java
- com.example.demo.src.order.OrderDao
-com/example/demo/src/order/OrderController.java
- com.example.demo.src.order.OrderController
+com/example/demo/src/user/UserDao.java
+ com.example.demo.src.user.UserDao
+com/example/demo/src/user/UserService.java
+ com.example.demo.src.user.UserService
+com/example/demo/src/user/UserController.java
+ com.example.demo.src.user.UserController
+com/example/demo/src/user/UserProvider.java
+ com.example.demo.src.user.UserProvider
+com/example/demo/src/user/model/GetUserCoupon.java
+ com.example.demo.src.user.model.GetUserCoupon

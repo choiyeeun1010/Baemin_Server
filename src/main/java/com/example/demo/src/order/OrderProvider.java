@@ -31,11 +31,20 @@ public class OrderProvider {
     }
 
     public List<GetOrder> getOrder(int userIdx) throws BaseException {
-       // try {
+        try {
             List<GetOrder> getOrder = orderDao.getOrder(userIdx);
             return getOrder;
-      //  } catch (Exception exception) {
-        //    throw new BaseException(DATABASE_ERROR);
-       // }
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetOrderReceipt> getOrderReceipt(int userIdx, int orderIdx) throws BaseException {
+        try {
+            List<GetOrderReceipt> getOrderReceipt = orderDao.getOrderReceipt(userIdx, orderIdx);
+            return getOrderReceipt;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 }

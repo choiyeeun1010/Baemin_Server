@@ -105,6 +105,15 @@ public class UserProvider {
         }
     }
 
+    public List<GetUserCoupon> getUserCoupon(int userIdx) throws BaseException{
+        try {
+            List<GetUserCoupon> getUserCoupon = userDao.getUserCoupon(userIdx);
+            return getUserCoupon;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);
