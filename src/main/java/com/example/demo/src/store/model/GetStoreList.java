@@ -9,4 +9,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetStoreList {
+    private int storeIdx;
+    private String image;
+    private String storeName;
+    private String deliveryTime;
+    private int mainAmount;
+    private int deliveryPrice;
+    private float scope;
+    private String menuName;
+    private String menuState;
+    private int menuCategoryIdx;
 }
