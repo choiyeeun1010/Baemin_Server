@@ -76,4 +76,13 @@ public class StoreProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public List<GetStoreMenu> getStoreMenu(int storeIdx) throws BaseException {
+        try {
+            List<GetStoreMenu> getStoreMenu = storeDao.getStoreMenu(storeIdx);
+            return getStoreMenu;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
