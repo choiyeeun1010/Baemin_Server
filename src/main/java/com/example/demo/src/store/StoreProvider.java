@@ -1,4 +1,5 @@
 package com.example.demo.src.store;
+
 import com.example.demo.config.BaseException;
 import com.example.demo.src.store.model.*;
 import com.example.demo.src.store.StoreDao;
@@ -31,32 +32,30 @@ public class StoreProvider {
         this.jwtService = jwtService;
     }
 
-    public List<GetStoreMain> getStoreMain(int storeIdx) throws BaseException{
-       // try{
+    public List<GetStoreMain> getStoreMain(int storeIdx) throws BaseException {
+        try {
             List<GetStoreMain> getStoreMain = storeDao.getStoreMain(storeIdx);
             return getStoreMain;
-       // }
-       // catch (Exception exception) {
-           // throw new BaseException(DATABASE_ERROR);
-        //}
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 
-    public List<GetStoreList> getStoreList() throws BaseException{
-        // try{
-        List<GetStoreList> getStoreList = storeDao.getStoreList();
-        return getStoreList;
-        // }
-        // catch (Exception exception) {
-        // throw new BaseException(DATABASE_ERROR);
-        //}
+    public List<GetStoreList> getStoreList() throws BaseException {
+        try {
+            List<GetStoreList> getStoreList = storeDao.getStoreList();
+            return getStoreList;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
-    public List<GetStoreIntro> getStoreIntro(int storeIdx) throws BaseException{
-        // try{
-        List<GetStoreIntro> getStoreIntro = storeDao.getStoreIntro(storeIdx);
-        return getStoreIntro;
-        // }
-        // catch (Exception exception) {
-        // throw new BaseException(DATABASE_ERROR);
-        //}
+
+    public List<GetStoreIntro> getStoreIntro(int storeIdx) throws BaseException {
+        try {
+            List<GetStoreIntro> getStoreIntro = storeDao.getStoreIntro(storeIdx);
+            return getStoreIntro;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 }

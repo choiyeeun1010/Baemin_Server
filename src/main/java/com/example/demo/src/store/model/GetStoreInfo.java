@@ -18,6 +18,7 @@ public class GetStoreInfo {
     private String orderPrice;
     private String deliveryPrice;
     private String regionName;
+    private String regionDeliveryPrice;
     private int orderIdx;
     private int reviewIdx;
     private int likeStoreIdx;

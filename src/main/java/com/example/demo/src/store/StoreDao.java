@@ -129,26 +129,58 @@ public class StoreDao {
     }
 
     public List<GetStoreInfo> getStoreInfo(int storeIdx){
-        String getStoreInfoQuery = "select s.storeIdx, s.storeName, si.image, s.storeIntro\n" +
-                "from Store s, StoreImage si\n" +
-                "where s.storeIdx = si.storeIdx and s.storeIdx = ? ";
+        String getStoreInfoQuery = "select s.storeIdx,\n" +
+                "       storeName \'상점명\',\n" +
+                "       openTime \'오픈시간\',\n" +
+                "       closeTime \'마감시간\',\n" +
+                "       storeHoliday \'휴무일\',\n" +
+                "       storeCallNum \'상점전화번호\',\n" +
+                "       Notice.noticeContents \'안내\',\n" +
+                "       concat(format(dp.orderPrice,0), '원') \'기본배달팁주문금액\',\n" +
+                "       concat(format(dp.deliveryPrice,0), '원') \'배달팁\',\n" +
+                "       rp.regionName \'배달팁추가지역\',\n" +
+                "       concat(format(rp.deliveryPrice,0), '원') \'추가배달팁\',\n" +
+                "       format(orderCount, 0) \'주문수\',\n" +
+                "       format(reviewCount, 0) \'리뷰수\',\n" +
+                "       format(likeCount, 0) \'별점수\'\n" +
+                "from Store s\n" +
+                "   join(\n" +
+                "       select storeIdx, count(orderIdx) as orderCount\n" +
+                "       from `Order`\n" +
+                "       group by storeIdx\n" +
+                "    ) as v on v.storeIdx = s.storeIdx\n" +
+                "   join(\n" +
+                "       select storeIdx, count(reviewIdx) as reviewCount\n" +
+                "       from UserReview\n" +
+                "       group by storeIdx\n" +
+                "    ) as w on w.storeIdx = s.storeIdx\n" +
+                "   join(\n" +
+                "       select storeIdx, count(likeStoreIdx) as likeCount\n" +
+                "       from LikeStore\n" +
+                "       group by storeIdx\n" +
+                "    ) as x on x.storeIdx = s.storeIdx\n" +
+                "   , RegionPrice, Notice, DeliveryPrice dp, RegionPrice rp\n" +
+                "where s.storeIdx = RegionPrice.storeIdx\n" +
+                "and s.storeIdx = Notice.storeIdx\n" +
+                "and s.storeIdx = dp.storeIdx\n" +
+                "and s.storeIdx = rp.storeIdx and s.storeIdx = ? ";
         int getStoreInfoParams = storeIdx;
         return this.jdbcTemplate.query(getStoreInfoQuery,
                 (rs, rowNum) -> new GetStoreInfo(
                         rs.getInt("storeIdx"),
-                        rs.getString("storeName"),
-                        rs.getString("openTime"),
-                        rs.getString("closeTime"),
-                        rs.getString("storeHoliday"),
-                        rs.getString("storeCallNum"),
-                        rs.getString("noticeContents"),
-                        rs.getInt("orderPrice"),
-                        rs.getInt("deliveryPrice"),
-                        rs.getString("regionName"),
-                        rs.getInt("orderIdx"),
-                        rs.getInt("reviewIdx"),
-                        rs.getInt("likeStoreIdx")
-                        ),
+                        rs.getString("상점명"),
+                        rs.getString("오픈시간"),
+                        rs.getString("마감시간"),
+                        rs.getString("휴무일"),
+                        rs.getString("상점전화번호"),
+                        rs.getString("안내"),
+                        rs.getString("기본배달팁주문금액"),
+                        rs.getString("배달팁"),
+                        rs.getString("배달팁추가지역"),
+                        rs.getString("추가배달팁"),
+                        rs.getInt("주문수"),
+                        rs.getInt("리뷰수"),
+                        rs.getInt("별점수")),
                 getStoreInfoParams);
     }
 }
