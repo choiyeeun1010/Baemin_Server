@@ -2,14 +2,14 @@ com/example/demo/src/user/model/GetUserMain.java
  com.example.demo.src.user.model.GetUserMain
 com/example/demo/utils/SHA256.java
  com.example.demo.utils.SHA256
-com/example/demo/src/user/model/GetSearchRanking.java
- com.example.demo.src.user.model.GetSearchRanking
+com/example/demo/src/store/model/GetStoreMain.java
+ com.example.demo.src.store.model.GetStoreMain
 com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
-com/example/demo/src/store/model/GetStoreMain.java
- com.example.demo.src.store.model.GetStoreMain
+com/example/demo/src/store/model/GetStoreList.java
+ com.example.demo.src.store.model.GetStoreList
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/user/model/PostLoginRes.java
@@ -46,21 +46,23 @@ com/example/demo/src/user/model/GetUserRes.java
  com.example.demo.src.user.model.GetUserRes
 com/example/demo/src/user/model/GetUserSearch.java
  com.example.demo.src.user.model.GetUserSearch
-com/example/demo/src/store/model/GetStoreList.java
- com.example.demo.src.store.model.GetStoreList
-com/example/demo/src/user/UserProvider.java
- com.example.demo.src.user.UserProvider
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
-com/example/demo/src/user/UserDao.java
- com.example.demo.src.user.UserDao
 com/example/demo/src/store/StoreProvider.java
  com.example.demo.src.store.StoreProvider
+com/example/demo/src/store/model/GetStoreInfo.java
+ com.example.demo.src.store.model.GetStoreInfo
 com/example/demo/src/store/StoreDao.java
  com.example.demo.src.store.StoreDao
 com/example/demo/src/store/StoreController.java
  com.example.demo.src.store.StoreController
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
 com/example/demo/src/store/model/GetStoreIntro.java
  com.example.demo.src.store.model.GetStoreIntro
+com/example/demo/src/user/UserDao.java
+ com.example.demo.src.user.UserDao
+com/example/demo/src/user/model/GetSearchRanking.java
+ com.example.demo.src.user.model.GetSearchRanking
+com/example/demo/src/user/UserService.java
+ com.example.demo.src.user.UserService
+com/example/demo/src/user/UserController.java
+ com.example.demo.src.user.UserController
+com/example/demo/src/user/UserProvider.java
+ com.example.demo.src.user.UserProvider

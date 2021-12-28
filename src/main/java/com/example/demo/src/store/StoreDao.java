@@ -21,59 +21,58 @@ public class StoreDao {
     }
 
     public List<GetStoreMain> getStoreMain(int storeIdx){
-        String getStoreMainQuery = "select s.storeIdx, " +
-                "       s.storeName, " +
-                "       s.storeCallNum, " +
-                "       si.image, " +
-                "       s.higienInformation, " +
-                "       concat('최소주문금액 ', format(s.minAmount, 0), '원'), " +
-                "       concat('결제방법 ', pm.methodName), " +
-                "       concat('배달시간 ', s.deliveryTime, ' 소요 예상'), " +
-                "       concat('배달팁 ', format(dp.deliveryPrice, 0), '원'), " +
-                "       round(ifnull(startGrade, 0), 1), " +
-                "       ifnull(reviewNum, 0), " +
-                "       ifnull(countComments, 0), " +
-                "       concat('찜 ', ifnull(likeNum, 0)) " +
-                "from Store s " +
-                "   join( " +
-                "       select storeIdx, sum(scope)/count(reviewIdx) as startGrade, " +
-                "              concat('최근 리뷰 ', count(reviewIdx)) as reviewNum " +
-                "       from UserReview " +
-                "       group by storeIdx " +
-                "    ) as v on v.storeIdx = s.storeIdx " +
-                "   join( " +
-                "       select storeIdx, concat('최근 사장님 댓글 수 ', count(comentIdx)) as countComments " +
-                "       from StoreManagerComent " +
-                "       group by storeIdx " +
-                "    ) as w on w.storeIdx = s.storeIdx " +
-                "   join( " +
-                "       select storeIdx, count(userIdx) as likeNum, likeState " +
-                "       from LikeStore " +
-                "       where likeState = 'T' " +
-                "       group by storeIdx " +
-                "    ) as x on x.storeIdx = s.storeIdx " +
-                ", StoreImage si, DeliveryPrice dp, UserReview ur, StorePaymentMethod m, PaymentMethod pm " +
-                "where s.storeIdx = si.storeIdx and s.storeIdx = dp.storeIdx and s.storeIdx = ur.storeIdx " +
+        String getStoreMainQuery = "select s.storeIdx,\n" +
+                "       s.storeName as \'상점명\',\n" +
+                "       s.storeCallNum as \'상점전화번호\',\n" +
+                "       si.image as \'상점이미지\',\n" +
+                "       s.higienInformation as \'위생정보\',\n" +
+                "       concat('최소주문금액 ',format(minAmount, 0), '원') as \'최소주문금액\',\n" +
+                "       concat('결제방법 ', pm.methodName) as \'결제방법\',\n" +
+                "       concat('배달시간 ', s.deliveryTime, ' 소요 예상') as \'배달시간\',\n" +
+                "       concat('배달팁 ', format(dp.deliveryPrice, 0), '원') as \'배달팁\',\n" +
+                "       round(ifnull(startGrade, 0), 1) as \'별점\',\n" +
+                "       ifnull(reviewNum, 0) as \'리뷰수\',\n" +
+                "       ifnull(countComments, 0) as \'사장님댓글수\',\n" +
+                "       concat('찜 ', ifnull(likeNum, 0)) as \'찜\'\n" +
+                "\n" +
+                "from Store s\n" +
+                "   join(\n" +
+                "       select storeIdx, sum(scope)/count(reviewIdx) as startGrade,\n" +
+                "              concat('최근 리뷰 ', count(reviewIdx)) as reviewNum\n" +
+                "       from UserReview\n" +
+                "       group by storeIdx\n" +
+                "    ) as v on v.storeIdx = s.storeIdx\n" +
+                "   join(\n" +
+                "       select storeIdx, concat('최근 사장님 댓글 수 ', count(comentIdx)) as countComments\n" +
+                "       from StoreManagerComent\n" +
+                "       group by storeIdx\n" +
+                "    ) as w on w.storeIdx = s.storeIdx\n" +
+                "   join(\n" +
+                "       select storeIdx, count(userIdx) as likeNum, likeState\n" +
+                "       from LikeStore\n" +
+                "       where likeState = 'T'\n" +
+                "       group by storeIdx\n" +
+                "    ) as x on x.storeIdx = s.storeIdx\n" +
+                ", StoreImage si, DeliveryPrice dp, UserReview ur, StorePaymentMethod m, PaymentMethod pm\n" +
+                "where s.storeIdx = si.storeIdx and s.storeIdx = dp.storeIdx and s.storeIdx = ur.storeIdx\n" +
                 "and s.storeIdx = m.storeIdx and m.methodIdx = pm.methodIdx and s.storeIdx = ? ";
             int getStoreMainParams = storeIdx;
 
             return this.jdbcTemplate.query(getStoreMainQuery,
                 (rs,rowNum) -> new GetStoreMain(
-                        rs.getInt("s.storeIdx"),
-                        rs.getString("s.storeName"),
-                        rs.getString("s.storeCallNum"),
-                        rs.getString("si.image"),
-                        rs.getString("s.higienInformation"),
-                        rs.getInt("s.minAmount"),
-                        rs.getString("pm.methodName"),
-                        rs.getString("s.deliveryTime"),
-                        rs.getInt("dp.deliveryPrice"),
-                        rs.getFloat("scope"),
-                        rs.getInt("reviewIdx"),
-                        rs.getInt("comentIdx"),
-                        rs.getInt("userIdx"),
-                        rs.getString("likeState"),
-                        rs.getInt("methodIdx")
+                        rs.getInt("storeIdx"),
+                        rs.getString("상점명"),
+                        rs.getString("상점전화번호"),
+                        rs.getString("상점이미지"),
+                        rs.getString("위생정보"),
+                        rs.getString("최소주문금액"),
+                        rs.getString("결제방법"),
+                        rs.getString("배달시간"),
+                        rs.getString("배달팁"),
+                        rs.getFloat("별점"),
+                        rs.getString("리뷰수"),
+                        rs.getString("사장님댓글수"),
+                        rs.getString("찜")
                 ), getStoreMainParams);
     }
 
@@ -106,13 +105,12 @@ public class StoreDao {
                         rs.getInt("storeIdx"),
                         rs.getString("image"),
                         rs.getString("storeName"),
-                        rs.getString("deliveryTime"),
-                        rs.getInt("minAmount"),
-                        rs.getInt("deliveryPrice"),
-                        rs.getFloat("scope"),
-                        rs.getString("menuName"),
-                        rs.getString("menuState"),
-                        rs.getInt("methodIdx")
+                        rs.getString("배달시간"),
+                        rs.getString("최소주문금액"),
+                        rs.getString("배달비"),
+                        rs.getFloat("starGrade"),
+                        rs.getInt("starCount"),
+                        rs.getString("mainMenu")
                 ));
     }
 
@@ -128,5 +126,29 @@ public class StoreDao {
                         rs.getString("image"),
                         rs.getString("storeIntro")),
                 getStoreIntroParams);
+    }
+
+    public List<GetStoreInfo> getStoreInfo(int storeIdx){
+        String getStoreInfoQuery = "select s.storeIdx, s.storeName, si.image, s.storeIntro\n" +
+                "from Store s, StoreImage si\n" +
+                "where s.storeIdx = si.storeIdx and s.storeIdx = ? ";
+        int getStoreInfoParams = storeIdx;
+        return this.jdbcTemplate.query(getStoreInfoQuery,
+                (rs, rowNum) -> new GetStoreInfo(
+                        rs.getInt("storeIdx"),
+                        rs.getString("storeName"),
+                        rs.getString("openTime"),
+                        rs.getString("closeTime"),
+                        rs.getString("storeHoliday"),
+                        rs.getString("storeCallNum"),
+                        rs.getString("noticeContents"),
+                        rs.getInt("orderPrice"),
+                        rs.getInt("deliveryPrice"),
+                        rs.getString("regionName"),
+                        rs.getInt("orderIdx"),
+                        rs.getInt("reviewIdx"),
+                        rs.getInt("likeStoreIdx")
+                        ),
+                getStoreInfoParams);
     }
 }

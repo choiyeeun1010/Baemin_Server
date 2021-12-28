@@ -13,5 +13,6 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class GetSearchRanking {
     private String searchContents;
-    private Timestamp createat;
+    private int searchCount;
+    private String searchBase;
 }

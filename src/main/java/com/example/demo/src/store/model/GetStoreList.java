@@ -13,10 +13,13 @@ public class GetStoreList {
     private String image;
     private String storeName;
     private String deliveryTime;
-    private int minAmount;
-    private int deliveryPrice;
-    private float scope;
-    private String menuName;
-    private String menuState;
-    private int menuCategoryIdx;
+    private String minAmount;
+    private String deliveryPrice;
+    private float starGrade;
+    private int reviewCount;
+    private String mainMenu;
+//    private float scope;
+//    private String menuName;
+//    private String menuState;
+//    private int menuCategoryIdx;
 }

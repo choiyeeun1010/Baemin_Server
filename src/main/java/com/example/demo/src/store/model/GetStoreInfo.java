@@ -15,8 +15,8 @@ public class GetStoreInfo {
     private String storeHoliday;
     private String storeCallNum;
     private String noticeContents;
-    private int orderPrice;
-    private int deliveryPrice;
+    private String orderPrice;
+    private String deliveryPrice;
     private String regionName;
     private int orderIdx;
     private int reviewIdx;

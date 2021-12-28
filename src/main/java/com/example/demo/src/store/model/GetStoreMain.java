@@ -13,14 +13,12 @@ public class GetStoreMain {
     private String storeCallNum;
     private String image;
     private String higienInformation;
-    private int minamount;
+    private String minAmount;
     private String methodName;
     private String deliveryTime;
-    private int deliveryPrice;
-    private float scope;
-    private int reviewIdx;
-    private int comentIdx;
-    private int userIdx;
-    private String likeState;
-    private int methodIdx;
+    private String deliveryPrice;
+    private float starGrade;
+    private String reviewNum;
+    private String countComments;
+    private String likeNum;
 }
