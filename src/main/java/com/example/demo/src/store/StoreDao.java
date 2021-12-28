@@ -221,4 +221,23 @@ public class StoreDao {
                         rs.getString("mainMenu")
                 ), getStoreCategoryParams);
     }
+
+    public List<GetStoreMenu> getStoreMenu(int storeIdx){
+        String getStoreMenuQuery = "select m.menuIdx,\n" +
+                "       concat(format(menuPrice,0), '원') as menuPrice,\n" +
+                "       mi.image,\n" +
+                "       m.menuIntro,\n" +
+                "       m.menuCategoryIdx\n" +
+                "from Menu m, MenuImage mi\n" +
+                "where m.menuIdx = mi.menuIdx and s.storeIdx = ? ";
+        int getStoreMenuParams = storeIdx;
+        return this.jdbcTemplate.query(getStoreMenuQuery,
+                (rs, rowNum) -> new GetStoreMenu(
+                        rs.getInt("menuIdx"),
+                        rs.getString("menuPrice"),
+                        rs.getString("menuImage"),
+                        rs.getString("menuIntro"),
+                        rs.getInt("menuCategoryIdx")),
+                getStoreMenuParams);
+    }
 }
