@@ -68,4 +68,12 @@ public class StoreProvider {
         }
     }
 
+    public List<GetStoreCategory> getStoreCategory(int categoryIdx) throws BaseException {
+        try {
+            List<GetStoreCategory> getStoreCategory = storeDao.getStoreCategory(categoryIdx);
+            return getStoreCategory;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
