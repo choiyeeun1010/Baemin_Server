@@ -94,15 +94,11 @@ public class UserDao {
     }
 
     public List<GetSearchRanking> getSearchRanking(){
-        String getSearchRankingQuery = "select searchContents as \"검색내용\", count(searchContents) as \"검색수\", concat(date_format(now(), '%m.%d %H:00'), ' 기준') as \"기준\"\n" +
-                "from Search\n" +
-                "where createAt < date_format(now(), '%Y-%m-%d %H:00:00')\n" +
-                "group by searchContents\n" +
-                "order by count(searchContents) desc";
+        String getSearchRankingQuery = "select searchContents, count(searchContents) , concat(date_format(now(), '%m.%d %H:00'), ' 기준') from Search where createat < date_format(now(), '%Y-%m-%d %H:00:00') group by searchContents order by count(searchContents) desc";
         return this.jdbcTemplate.query(getSearchRankingQuery,
                 (rs, rowNum) -> new GetSearchRanking(
                         rs.getString("searchContents"),
-                        rs.getString("createAt"))
+                        rs.getTimestamp("createat"))
                 );
     }
 

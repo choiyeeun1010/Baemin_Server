@@ -61,12 +61,12 @@ public class UserProvider {
     }
 
     public List<GetUserMain> getUserMain(int userIdx) throws BaseException {
-        //try {
+        try {
             List<GetUserMain> getUserMain = userDao.getUserMain(userIdx);
             return getUserMain;
-        //} catch (Exception exception) {
-          //  throw new BaseException(DATABASE_ERROR);
-        //}
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 
     public List<GetUserAddress> getUserAddress(int userIdx) throws BaseException {
@@ -88,12 +88,12 @@ public class UserProvider {
     }
 
     public List<GetSearchRanking> getSearchRanking() throws BaseException{
-        try {
+        //try {
             List<GetSearchRanking> getSearchRanking = userDao.getSearchRanking();
             return getSearchRanking;
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
+       // } catch (Exception exception) {
+           // throw new BaseException(DATABASE_ERROR);
+        //}
     }
 
     public int checkEmail(String email) throws BaseException{

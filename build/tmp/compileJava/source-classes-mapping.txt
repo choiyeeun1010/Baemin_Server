@@ -1,3 +1,5 @@
+com/example/demo/src/store/StoreDao.java
+ com.example.demo.src.store.StoreDao
 com/example/demo/utils/SHA256.java
  com.example.demo.utils.SHA256
 com/example/demo/src/user/model/GetSearchRanking.java
@@ -6,6 +8,8 @@ com/example/demo/src/user/model/PostUserReq.java
  com.example.demo.src.user.model.PostUserReq
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
+com/example/demo/src/store/model/GetStoreMain.java
+ com.example.demo.src.store.model.GetStoreMain
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/user/model/PostLoginRes.java
@@ -26,14 +30,20 @@ com/example/demo/src/user/model/PostLoginReq.java
  com.example.demo.src.user.model.PostLoginReq
 com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
+com/example/demo/src/store/StoreController.java
+ com.example.demo.src.store.StoreController
 com/example/demo/src/user/model/PostUserRes.java
  com.example.demo.src.user.model.PostUserRes
 com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
+com/example/demo/src/store/StoreService.java
+ com.example.demo.src.store.StoreService
 com/example/demo/src/user/model/User.java
  com.example.demo.src.user.model.User
+com/example/demo/src/store/StoreProvider.java
+ com.example.demo.src.store.StoreProvider
 com/example/demo/src/user/model/GetUserSearch.java
  com.example.demo.src.user.model.GetUserSearch
 com/example/demo/src/user/UserService.java

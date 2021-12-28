@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.naming.Name;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class GetSearchRanking {
     private String searchContents;
-    private String createAt;
+    private Timestamp createat;
 }
