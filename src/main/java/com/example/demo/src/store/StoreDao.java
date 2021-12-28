@@ -183,4 +183,42 @@ public class StoreDao {
                         rs.getInt("별점수")),
                 getStoreInfoParams);
     }
+
+    public List<GetStoreCategory> getStoreCategory(int categoryIdx){
+        String getStorecategoryQuery = "select s.storeIdx, " +
+                "       si.image, " +
+                "       s.storeName, " +
+                "       concat(s.deliveryTime, '분') as \'배달시간\', " +
+                "       concat('최소주문 ', format(s.minAmount, 0), '원') as \'최소주문금액\', " +
+                "       concat('배달팁 ', format(dp.deliveryPrice, 0), '원') as \'배달비\', " +
+                "       ifnull(v.startGrade, 0) as starGrade, " +
+                "       ifnull(v.reviewCount, 0) as starCount, " +
+                "       ifnull(mainMenu, '') as mainMenu " +
+                "from Store s " +
+                "   left join(select storeIdx, " +
+                "                    round(sum(scope) / count(storeIdx), 1) as 'startGrade', " +
+                "                    count(storeIdx) as 'reviewCount' " +
+                "       from UserReview " +
+                "       group by storeIdx) as v " +
+                "   on s.storeIdx = v.storeIdx\n" +
+                "   left join(select storeIdx, group_concat(menuName separator ', ') as mainMenu " +
+                "       from Menu " +
+                "       where menuState = 'T' and Menu.menuCategoryIdx=1 " +
+                "       group by storeIdx) as w " +
+                "   on s.storeIdx = w.storeIdx, StoreImage si, DeliveryPrice dp " +
+                "where s.storeIdx = si.storeIdx and s.storeIdx = dp.storeIdx and categoryIdx = ? ";
+        int getStoreCategoryParams = categoryIdx;
+        return this.jdbcTemplate.query(getStorecategoryQuery,
+                (rs,rowNum) -> new GetStoreCategory(
+                        rs.getInt("storeIdx"),
+                        rs.getString("image"),
+                        rs.getString("storeName"),
+                        rs.getString("배달시간"),
+                        rs.getString("최소주문금액"),
+                        rs.getString("배달비"),
+                        rs.getFloat("starGrade"),
+                        rs.getInt("starCount"),
+                        rs.getString("mainMenu")
+                ), getStoreCategoryParams);
+    }
 }
