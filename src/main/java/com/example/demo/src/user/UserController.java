@@ -131,6 +131,19 @@ public class UserController {
         }
     }
 
+    @ResponseBody
+    @GetMapping("/{userIdx}/like") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<GetUserLike>> getUserLike(@PathVariable("userIdx") int userIdx) {
+        // Get Users
+        try{
+            List<GetUserLike> getUserLike = userProvider.getUserLike(userIdx);
+            return new BaseResponse<>(getUserLike);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
+
     /**
      * 회원가입 API
      * [POST] /users
