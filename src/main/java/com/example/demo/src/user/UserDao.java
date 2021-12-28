@@ -98,7 +98,7 @@ public class UserDao {
         return this.jdbcTemplate.query(getSearchRankingQuery,
                 (rs, rowNum) -> new GetSearchRanking(
                         rs.getString("searchContents"),
-                        rs.getTimestamp("createat"))
+                        rs.getTimestamp("createAt"))
                 );
     }
 

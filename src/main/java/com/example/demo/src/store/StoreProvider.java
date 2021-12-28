@@ -50,5 +50,13 @@ public class StoreProvider {
         // throw new BaseException(DATABASE_ERROR);
         //}
     }
-
+    public List<GetStoreIntro> getStoreIntro(int storeIdx) throws BaseException{
+        // try{
+        List<GetStoreIntro> getStoreIntro = storeDao.getStoreIntro(storeIdx);
+        return getStoreIntro;
+        // }
+        // catch (Exception exception) {
+        // throw new BaseException(DATABASE_ERROR);
+        //}
+    }
 }

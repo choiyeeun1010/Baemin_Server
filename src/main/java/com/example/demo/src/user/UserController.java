@@ -79,7 +79,7 @@ public class UserController {
 
     }
     @ResponseBody
-    @GetMapping("/main/{userIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{userIdx}/main") // (GET) 127.0.0.1:9000/users/main/:userIdx
     public BaseResponse<List<GetUserMain>> getUserMain(@PathVariable("userIdx") int userIdx) {
         // Get Users Main
         try{
@@ -94,7 +94,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/address/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/address") // (GET) 127.0.0.1:9000/app/users/:userIdx
     public BaseResponse<List<GetUserAddress>> getUserAddress(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
@@ -107,7 +107,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/search/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/search") // (GET) 127.0.0.1:9000/app/users/:userIdx
     public BaseResponse<List<GetUserSearch>> getUserSearch(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{

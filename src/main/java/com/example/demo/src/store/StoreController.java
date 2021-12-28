@@ -70,4 +70,19 @@ public class StoreController {
 
     }
 
+    @ResponseBody
+    @GetMapping("/{storeIdx}/intro") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    public BaseResponse<List<GetStoreIntro>> getStoreIntro(@PathVariable("storeIdx") int storeIdx) {
+        // Get Users Main
+        try{
+            List<GetStoreIntro> getStoreIntro = (List<GetStoreIntro>) storeProvider.getStoreIntro(storeIdx);
+            return new BaseResponse<>(getStoreIntro);
+        } catch(BaseException exception){
+            return new BaseResponse
+
+                    <>((exception.getStatus()));
+        }
+
+    }
+
 }

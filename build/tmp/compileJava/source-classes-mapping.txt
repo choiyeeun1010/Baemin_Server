@@ -1,5 +1,5 @@
-com/example/demo/src/store/StoreDao.java
- com.example.demo.src.store.StoreDao
+com/example/demo/src/user/model/GetUserMain.java
+ com.example.demo.src.user.model.GetUserMain
 com/example/demo/utils/SHA256.java
  com.example.demo.utils.SHA256
 com/example/demo/src/user/model/GetSearchRanking.java
@@ -14,8 +14,8 @@ com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/user/model/PostLoginRes.java
  com.example.demo.src.user.model.PostLoginRes
-com/example/demo/src/user/UserDao.java
- com.example.demo.src.user.UserDao
+com/example/demo/DemoApplication.java
+ com.example.demo.DemoApplication
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
 com/example/demo/src/user/model/PatchUserReq.java
@@ -30,33 +30,37 @@ com/example/demo/src/user/model/PostLoginReq.java
  com.example.demo.src.user.model.PostLoginReq
 com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
-com/example/demo/src/store/StoreController.java
- com.example.demo.src.store.StoreController
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
 com/example/demo/src/user/model/PostUserRes.java
  com.example.demo.src.user.model.PostUserRes
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
+com/example/demo/config/BaseException.java
+ com.example.demo.config.BaseException
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
 com/example/demo/src/store/StoreService.java
  com.example.demo.src.store.StoreService
 com/example/demo/src/user/model/User.java
  com.example.demo.src.user.model.User
-com/example/demo/src/store/StoreProvider.java
- com.example.demo.src.store.StoreProvider
-com/example/demo/src/user/model/GetUserSearch.java
- com.example.demo.src.user.model.GetUserSearch
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
 com/example/demo/src/user/model/GetUserRes.java
  com.example.demo.src.user.model.GetUserRes
-com/example/demo/config/BaseException.java
- com.example.demo.config.BaseException
-com/example/demo/DemoApplication.java
- com.example.demo.DemoApplication
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
-com/example/demo/src/user/model/GetUserMain.java
- com.example.demo.src.user.model.GetUserMain
+com/example/demo/src/user/model/GetUserSearch.java
+ com.example.demo.src.user.model.GetUserSearch
+com/example/demo/src/store/model/GetStoreList.java
+ com.example.demo.src.store.model.GetStoreList
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
+com/example/demo/src/user/UserService.java
+ com.example.demo.src.user.UserService
+com/example/demo/src/user/UserDao.java
+ com.example.demo.src.user.UserDao
+com/example/demo/src/store/StoreProvider.java
+ com.example.demo.src.store.StoreProvider
+com/example/demo/src/store/StoreDao.java
+ com.example.demo.src.store.StoreDao
+com/example/demo/src/store/StoreController.java
+ com.example.demo.src.store.StoreController
+com/example/demo/src/user/UserController.java
+ com.example.demo.src.user.UserController
+com/example/demo/src/store/model/GetStoreIntro.java
+ com.example.demo.src.store.model.GetStoreIntro
