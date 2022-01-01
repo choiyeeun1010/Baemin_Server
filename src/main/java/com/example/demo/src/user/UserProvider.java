@@ -114,6 +114,15 @@ public class UserProvider {
         }
     }
 
+    public List<GetUserReview> getUserReview(int userIdx) throws BaseException{
+        try {
+            List<GetUserReview> getUserReview = userDao.getUserReview(userIdx);
+            return getUserReview;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);

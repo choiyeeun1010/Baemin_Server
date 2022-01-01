@@ -153,7 +153,18 @@ public class UserController {
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
+    }
 
+    @ResponseBody
+    @GetMapping("/{userIdx}/review") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<List<GetUserReview>> getUserReview(@PathVariable("userIdx") int userIdx) {
+        // Get Users
+        try{
+            List<GetUserReview> getUserReview = userProvider.getUserReview(userIdx);
+            return new BaseResponse<>(getUserReview);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
     }
 
     /**

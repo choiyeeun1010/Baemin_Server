@@ -18,8 +18,4 @@ public class GetStoreList {
     private float starGrade;
     private int reviewCount;
     private String mainMenu;
-//    private float scope;
-//    private String menuName;
-//    private String menuState;
-//    private int menuCategoryIdx;
 }

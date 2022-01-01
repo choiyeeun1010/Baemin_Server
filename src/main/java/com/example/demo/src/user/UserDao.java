@@ -176,6 +176,33 @@ public class UserDao {
                 ), getUserCouponParams);
     }
 
+    public List<GetUserReview> getUserReview(int userIdx){
+        String getUserReviewQuery = "select ur.reviewIdx,\n" +
+                "       s.storeName \'상점명\',\n" +
+                "       ri.image \'리뷰이미지\',\n" +
+                "       ur.review \'리뷰내용\',\n" +
+                "       m.menuName \'메뉴이름\',\n" +
+                "       ur.scope \'별점\',\n" +
+                "       ur.good \'추천여부\'\n" +
+                "from UserReview ur, User u, ReviewImage ri, Store s, SelectMenu sm, Menu m\n" +
+                "where ur.userIdx = u.userIdx\n" +
+                "and ur.reviewIdx = ri.reviewIdx\n" +
+                "and ur.storeIdx = s.storeIdx\n" +
+                "and ur.selectIdx = sm.selectIdx\n" +
+                "and sm.menuIdx = m.menuIdx and ur.userIdx = ?";
+        int getUserReviewParams = userIdx;
+        return this.jdbcTemplate.query(getUserReviewQuery,
+                (rs, rowNum) -> new GetUserReview(
+                        rs.getInt("ur.reviewIdx"),
+                        rs.getString("상점명"),
+                        rs.getString("리뷰이미지"),
+                        rs.getString("리뷰내용"),
+                        rs.getString("메뉴이름"),
+                        rs.getFloat("별점"),
+                        rs.getString("추천여부")
+                ), getUserReviewParams);
+    }
+
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into UserInfo (userName, userID, password, userEmail) VALUES (?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserName(), postUserReq.getId(), postUserReq.getPassword(), postUserReq.getEmail()};

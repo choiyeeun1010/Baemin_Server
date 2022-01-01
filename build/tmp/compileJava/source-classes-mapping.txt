@@ -76,6 +76,10 @@ com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
 com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
+com/example/demo/src/user/model/GetUserCoupon.java
+ com.example.demo.src.user.model.GetUserCoupon
+com/example/demo/src/user/model/GetUserReview.java
+ com.example.demo.src.user.model.GetUserReview
 com/example/demo/src/user/UserDao.java
  com.example.demo.src.user.UserDao
 com/example/demo/src/user/UserService.java
@@ -84,5 +88,3 @@ com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
-com/example/demo/src/user/model/GetUserCoupon.java
- com.example.demo.src.user.model.GetUserCoupon
