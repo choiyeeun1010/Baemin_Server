@@ -150,4 +150,12 @@ public class UserProvider {
         }
 
     }
+
+//    public GetSocial getIdx(String email) throws BaseException{
+//        try{
+//            return userDao.getIdx(email);
+//        } catch (Exception exception){
+//            throw new BaseException(DATABASE_ERROR);
+//        }
+//    }
 }

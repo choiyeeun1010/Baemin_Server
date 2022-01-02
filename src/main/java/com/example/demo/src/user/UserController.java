@@ -194,6 +194,20 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    @ResponseBody
+    @PostMapping("/address")
+    public BaseResponse<String> createUserAddress(@RequestBody PostUserAddress postUserAddress) {
+        // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
+        try {
+            userService.createUserAddress(postUserAddress);
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
     /**
      * 로그인 API
      * [POST] /users/logIn
@@ -267,6 +281,34 @@ public class UserController {
         }
     }
 
+    /**
+     * 네이버 로그인 API
+     * [POST] /users/naver-signin
+     * @return BaseResponse<PostUserSignInRes>
+     */
+    @ResponseBody
+    @PostMapping("/users/naver-login")
+    public BaseResponse<PostLoginRes> postNaverSignIn() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String accessToken = request.getHeader("NAVER-ACCESS-TOKEN");
+        //String deviceToken = request.getHeader("DEVICE-TOKEN");
+
+
+//        if (accessToken == null || accessToken.length() == 0) {
+//            return new BaseResponse<>(EMPTY_ACCESS_TOKEN);
+//        }
+//        if (deviceToken == null || deviceToken.length() == 0) {
+//            return new BaseResponse<>(EMPTY_DEVICE_TOKEN);
+//        }
+
+
+        try {
+            PostLoginRes postLoginRes = userService.createNaverSignIn(accessToken);
+            return new BaseResponse<>(postLoginRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
 
 
 }

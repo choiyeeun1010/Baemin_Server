@@ -214,6 +214,14 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
+    public int createUserAddress(PostUserAddress postUserAddress){
+        String postUserAddressQuery = "insert into UserAddress (userIdx, addressName, address) values (?, ?, ?) ";
+        Object[] postUserAddressParams = new Object[]{postUserAddress.getUserIdx(), postUserAddress.getAddressName(), postUserAddress.getAddress()};
+        this.jdbcTemplate.update(postUserAddressQuery, postUserAddressParams);
+        String lastInserIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+    }
+
     public int checkEmail(String email){
         String checkEmailQuery = "select exists(select email from User where email = ?)";
         String checkEmailParams = email;
@@ -245,5 +253,11 @@ public class UserDao {
 
     }
 
+    public GetSocial getIdx(String email){
+        String getSocialQuery = "select userIdx from User where email = ? ";
+        String getSocialParams = email;
 
+        return this.jdbcTemplate.queryForObject(getSocialQuery,
+                (rs, rowNum)-> new GetSocial(rs.getInt("userIdx")), getSocialParams);
+    }
 }

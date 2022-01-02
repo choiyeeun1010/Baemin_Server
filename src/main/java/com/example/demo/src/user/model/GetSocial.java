@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetSocial {
-    private int
+    private int userIdx;
 }
