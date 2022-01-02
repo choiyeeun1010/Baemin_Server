@@ -54,10 +54,23 @@ public enum BaseResponseStatus {
     MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
-    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
 
-    // 5000 : 필요시 만들어서 쓰세요
+    // 5000 : 기타 오류
+    WRONG_URL(false, 5001, "잘못된 URL 정보입니다."),
+    FAILED_TO_CONNECT(false,5002,"URL 연결에 실패했습니다."),
+    FAILED_TO_READ_RESPONSE(false,5003,"로그인 정보 조회에 실패했습니다."),
+    FAILED_TO_PARSE(false,5004,"파싱에 실패했습니다."),
+    FORBIDDEN_ACCESS(false, 5005, "접근 권한이 없습니다."),
+    FAILED_TO_KAKAO_SIGN_UP(false, 5006, "카카오 회원가입에 실패하였습니다."),
+    FAILED_TO_NAVER_SIGN_UP(false, 5007, "네이버 회원가입에 실패하였습니다."),
+    FAILED_TO_KAKAO_SIGN_IN(false, 5008, "카카오 로그인에 실패하였습니다."),
+    FAILED_TO_NAVER_SIGN_IN(false, 5009, "네이버 로그인에 실패하였습니다."),
+    EXIST_USER(false, 5010, "존재하는 회원입니다. 로그인을 시도하세요"),
+    FORBIDDEN_USER(false, 5011, "해당 회원에 접근할 수 없습니다."),
+
+            ;
     // 6000 : 필요시 만들어서 쓰세요
 
 

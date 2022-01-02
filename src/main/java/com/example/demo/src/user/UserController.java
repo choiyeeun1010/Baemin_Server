@@ -8,7 +8,10 @@ import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -234,6 +237,36 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    /**
+     * 카카오 로그인 API
+     * [POST] /users/kakao-signin
+     * @return BaseResponse<PostUserSignInRes>
+     */
+    @ResponseBody
+    @PostMapping("/kakao-login")
+    public BaseResponse<PostLoginRes> postKakaoLogIn() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        String accessToken = request.getHeader("KAKAO-ACCESS-TOKEN");
+//        String deviceToken = request.getHeader("DEVICE-TOKEN");
+
+
+//        if (accessToken == null || accessToken.length() == 0) {
+//            return new BaseResponse<>(EMPTY_ACCESS_TOKEN);
+//        }
+//        if (deviceToken == null || deviceToken.length() == 0) {
+//            return new BaseResponse<>(EMPTY_DEVICE_TOKEN);
+//        }
+
+
+        try {
+            PostLoginRes postLoginRes = userService.createKakaoSignIn(accessToken/*, deviceToken*/);
+            return new BaseResponse<>(postLoginRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
 
 
 }
