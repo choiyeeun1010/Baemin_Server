@@ -72,6 +72,7 @@ public class UserDao {
 
     public List<GetUserAddress> getUserAddress(int userIdx){
         String getUserAddressQuery = "select userIdx, userAddressIdx, addressName, address from UserAddress where userIdx = ?";
+        System.out.println(userIdx);
         int getUserAddressParams = userIdx;
         return this.jdbcTemplate.query(getUserAddressQuery,
                 (rs, rowNum) -> new GetUserAddress(
@@ -218,6 +219,14 @@ public class UserDao {
         String postUserAddressQuery = "insert into UserAddress (userIdx, addressName, address) values (?, ?, ?) ";
         Object[] postUserAddressParams = new Object[]{postUserAddress.getUserIdx(), postUserAddress.getAddressName(), postUserAddress.getAddress()};
         this.jdbcTemplate.update(postUserAddressQuery, postUserAddressParams);
+        String lastInserIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+    }
+
+    public int createUserSearch(PostUserSearch postUserSearch){
+        String postUserSearchQuery = "insert into Search (userIdx, searchContents) values (?, ?) ";
+        Object[] postUserSearchParams = new Object[]{postUserSearch.getUserIdx(), postUserSearch.getSearchContents()};
+        this.jdbcTemplate.update(postUserSearchQuery, postUserSearchParams);
         String lastInserIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }

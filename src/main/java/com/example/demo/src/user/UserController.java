@@ -14,7 +14,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-
 import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
@@ -29,9 +28,6 @@ public class UserController {
     private final UserService userService;
     @Autowired
     private final JwtService jwtService;
-
-
-
 
     public UserController(UserProvider userProvider, UserService userService, JwtService jwtService){
         this.userProvider = userProvider;
@@ -48,7 +44,7 @@ public class UserController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/app/users
+    @GetMapping("") // (GET) 127.0.0.1:9000/users
     public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
         try{
             if(Email == null){
@@ -70,10 +66,16 @@ public class UserController {
      */
     // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<GetUserRes> getUser(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             GetUserRes getUserRes = userProvider.getUser(userIdx);
             return new BaseResponse<>(getUserRes);
         } catch(BaseException exception){
@@ -81,8 +83,15 @@ public class UserController {
         }
 
     }
+
+    /**
+     * 메인화면 조회 API
+     * [GET] /users/:userIdx/main
+     * @return BaseResponse<GetUserMain>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/main") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{userIdx}/main") // (GET) 127.0.0.1:9000/users/:userIdx/main
     public BaseResponse<List<GetUserMain>> getUserMain(@PathVariable("userIdx") int userIdx) {
         // Get Users Main
         try{
@@ -96,11 +105,26 @@ public class UserController {
 
     }
 
+    /**
+     * 회원 주소 조회 API
+     * [GET] /users/:userIdx/address
+     * @return BaseResponse<GetUserAddress>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/address") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/address") // (GET) 127.0.0.1:9000/users/:userIdx/address
     public BaseResponse<List<GetUserAddress>> getUserAddress(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            System.out.println("jwtIdx" + userIdxByJwt);
+            System.out.println("userIdx" + userIdx);
+
             List<GetUserAddress> getUserAddress = userProvider.getUserAddress(userIdx);
             return new BaseResponse<>(getUserAddress);
         } catch(BaseException exception){
@@ -109,11 +133,23 @@ public class UserController {
 
     }
 
+    /**
+     * 회원 검색내역 조회 API
+     * [GET] /users/:userIdx/search
+     * @return BaseResponse<GetUserSearch>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/search") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/search") // (GET) 127.0.0.1:9000/users/:userIdx/search
     public BaseResponse<List<GetUserSearch>> getUserSearch(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List<GetUserSearch> getUserSearch = userProvider.getUserSearch(userIdx);
             return new BaseResponse<>(getUserSearch);
         } catch(BaseException exception){
@@ -122,8 +158,13 @@ public class UserController {
 
     }
 
+    /**
+     * 검색내역 조회(순위) API
+     * [GET] /users/search
+     * @return BaseResponse<GetSearchRanking>
+     */
     @ResponseBody
-    @GetMapping("/search") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/search") // (GET) 127.0.0.1:9000/users/search
     public BaseResponse<List<GetSearchRanking>> getSearchRanking() {
         // Get Users
         try{
@@ -134,11 +175,23 @@ public class UserController {
         }
     }
 
+    /**
+     * 회원 찜한상점 조회 API
+     * [GET] /users/:userIdx/like
+     * @return BaseResponse<GetUserLike>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/like") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/like") // (GET) 127.0.0.1:9000/users/:userIdx/like
     public BaseResponse<List<GetUserLike>> getUserLike(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List<GetUserLike> getUserLike = userProvider.getUserLike(userIdx);
             return new BaseResponse<>(getUserLike);
         } catch(BaseException exception){
@@ -146,11 +199,23 @@ public class UserController {
         }
     }
 
+    /**
+     * 회원 쿠폰 조회 API
+     * [GET] /users/:userIdx/coupon
+     * @return BaseResponse<GetUserCoupon>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/coupon") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/coupon") // (GET) 127.0.0.1:9000/users/:userIdx/coupon
     public BaseResponse<List<GetUserCoupon>> getUserCoupon(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List<GetUserCoupon> getUserCoupon = userProvider.getUserCoupon(userIdx);
             return new BaseResponse<>(getUserCoupon);
         } catch(BaseException exception){
@@ -158,11 +223,23 @@ public class UserController {
         }
     }
 
+    /**
+     * 회원 리뷰 조회 API
+     * [GET] /users/:userIdx/review
+     * @return BaseResponse<GetUserReview>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/review") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    @GetMapping("/{userIdx}/review") // (GET) 127.0.0.1:9000/users/:userIdx/review
     public BaseResponse<List<GetUserReview>> getUserReview(@PathVariable("userIdx") int userIdx) {
         // Get Users
         try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List<GetUserReview> getUserReview = userProvider.getUserReview(userIdx);
             return new BaseResponse<>(getUserReview);
         } catch(BaseException exception){
@@ -195,12 +272,37 @@ public class UserController {
         }
     }
 
+    /**
+     * 회원 주소 추가 API
+     * [POST] /users/address
+     * @return BaseResponse<String>
+     */
+    // Body
     @ResponseBody
     @PostMapping("/address")
     public BaseResponse<String> createUserAddress(@RequestBody PostUserAddress postUserAddress) {
         // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
         try {
             userService.createUserAddress(postUserAddress);
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 최근 검색어 추가 API
+     * [POST] /users/search
+     * @return BaseResponse<String>
+     */
+    // Body
+    @ResponseBody
+    @PostMapping("/search")
+    public BaseResponse<String> createUserSearch(@RequestBody PostUserSearch postUserSearch) {
+        // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
+        try {
+            userService.createUserSearch(postUserSearch);
             String result = "";
             return new BaseResponse<>(result);
         } catch (BaseException exception) {
@@ -262,16 +364,10 @@ public class UserController {
     public BaseResponse<PostLoginRes> postKakaoLogIn() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String accessToken = request.getHeader("KAKAO-ACCESS-TOKEN");
-//        String deviceToken = request.getHeader("DEVICE-TOKEN");
 
-
-//        if (accessToken == null || accessToken.length() == 0) {
-//            return new BaseResponse<>(EMPTY_ACCESS_TOKEN);
-//        }
-//        if (deviceToken == null || deviceToken.length() == 0) {
-//            return new BaseResponse<>(EMPTY_DEVICE_TOKEN);
-//        }
-
+        if (accessToken == null || accessToken.length() == 0) {
+            return new BaseResponse<>(EMPTY_ACCESS_TOKEN);
+        }
 
         try {
             PostLoginRes postLoginRes = userService.createKakaoSignIn(accessToken/*, deviceToken*/);
@@ -291,16 +387,10 @@ public class UserController {
     public BaseResponse<PostLoginRes> postNaverSignIn() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String accessToken = request.getHeader("NAVER-ACCESS-TOKEN");
-        //String deviceToken = request.getHeader("DEVICE-TOKEN");
 
-
-//        if (accessToken == null || accessToken.length() == 0) {
-//            return new BaseResponse<>(EMPTY_ACCESS_TOKEN);
-//        }
-//        if (deviceToken == null || deviceToken.length() == 0) {
-//            return new BaseResponse<>(EMPTY_DEVICE_TOKEN);
-//        }
-
+        if (accessToken == null || accessToken.length() == 0) {
+            return new BaseResponse<>(EMPTY_ACCESS_TOKEN);
+        }
 
         try {
             PostLoginRes postLoginRes = userService.createNaverSignIn(accessToken);
@@ -309,6 +399,4 @@ public class UserController {
             return new BaseResponse<>(exception.getStatus());
         }
     }
-
-
 }

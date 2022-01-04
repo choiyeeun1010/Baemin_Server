@@ -58,19 +58,30 @@ public class UserService {
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
-        //try{
+        try{
             int userIdx = userDao.createUser(postUserReq);
             //jwt 발급.
             String jwt = jwtService.createJwt(userIdx);
             return new PostUserRes(jwt,userIdx);
-        //} catch (Exception exception) {
-         //   throw new BaseException(DATABASE_ERROR);
-       // }
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 
     public void createUserAddress(PostUserAddress postUserAddress) throws BaseException{
         try{
             int result = userDao.createUserAddress(postUserAddress);
+            if(result == 0){
+                throw new BaseException(MODIFY_FAIL_USERNAME);
+            }
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void createUserSearch(PostUserSearch postUserSearch) throws BaseException{
+        try{
+            int result = userDao.createUserSearch(postUserSearch);
             if(result == 0){
                 throw new BaseException(MODIFY_FAIL_USERNAME);
             }

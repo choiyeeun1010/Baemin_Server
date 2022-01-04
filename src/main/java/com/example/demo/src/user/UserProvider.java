@@ -72,6 +72,7 @@ public class UserProvider {
     public List<GetUserAddress> getUserAddress(int userIdx) throws BaseException {
         try {
             List<GetUserAddress> getUserAddress = userDao.getUserAddress(userIdx);
+            System.out.println(getUserAddress);
             return getUserAddress;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
@@ -150,12 +151,4 @@ public class UserProvider {
         }
 
     }
-
-//    public GetSocial getIdx(String email) throws BaseException{
-//        try{
-//            return userDao.getIdx(email);
-//        } catch (Exception exception){
-//            throw new BaseException(DATABASE_ERROR);
-//        }
-//    }
 }
