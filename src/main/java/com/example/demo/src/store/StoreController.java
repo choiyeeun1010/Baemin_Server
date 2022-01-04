@@ -19,7 +19,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
-@RequestMapping("/store")
+@RequestMapping("/stores")
 public class StoreController {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,8 +38,14 @@ public class StoreController {
         this.jwtService = jwtService;
     }
 
+    /**
+     * 상점 메인화면 조회 API
+     * [GET] /stores/:storeIdx
+     * @return BaseResponse<GetStoreMain>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{storeIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{storeIdx}") // (GET) 127.0.0.1:9000/stores/:storeIdx
     public BaseResponse<List<GetStoreMain>> getStoreMain(@PathVariable("storeIdx") int storeIdx) {
         try {
             List<GetStoreMain> getStoreMain = (List<GetStoreMain>) storeProvider.getStoreMain(storeIdx);
@@ -50,8 +56,13 @@ public class StoreController {
         }
     }
 
+    /**
+     * 전체 상점 조회 API
+     * [GET] /stores/list
+     * @return BaseResponse<GetStoreList>
+     */
     @ResponseBody
-    @GetMapping("/list") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/list") // (GET) 127.0.0.1:9000/stores/list
     public BaseResponse<List<GetStoreList>> getStoreList() {
         try {
             List<GetStoreList> getStoreList = (List<GetStoreList>) storeProvider.getStoreList();
@@ -62,8 +73,14 @@ public class StoreController {
         }
     }
 
+    /**
+     * 상점 소개 조회 API
+     * [GET] /stores/:storeIdx/intro
+     * @return BaseResponse<GetStoreIntro>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{storeIdx}/intro") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{storeIdx}/intro") // (GET) 127.0.0.1:9000/stores/:storeIdx/intro
     public BaseResponse<List<GetStoreIntro>> getStoreIntro(@PathVariable("storeIdx") int storeIdx) {
         try {
             List<GetStoreIntro> getStoreIntro = (List<GetStoreIntro>) storeProvider.getStoreIntro(storeIdx);
@@ -74,8 +91,14 @@ public class StoreController {
         }
     }
 
+    /**
+     * 상점 정보 조회 API
+     * [GET] /stores/:storeIdx/info
+     * @return BaseResponse<GetStoreInfo>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{storeIdx}/info") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{storeIdx}/info") // (GET) 127.0.0.1:9000/stores/:storeIdx/info
     public BaseResponse<List<GetStoreInfo>> getStoreInfo(@PathVariable("storeIdx") int storeIdx) {
         try {
             List<GetStoreInfo> getStoreInfo = (List<GetStoreInfo>) storeProvider.getStoreInfo(storeIdx);
@@ -86,8 +109,14 @@ public class StoreController {
         }
     }
 
+    /**
+     * 카테고리별 상점 조회 API
+     * [GET] /stores/:categoryIdx/list
+     * @return BaseResponse<GetStoreCategory>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{categoryIdx}/list") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{categoryIdx}/list") // (GET) 127.0.0.1:9000/stores/:categoryIdx/list
     public BaseResponse<List<GetStoreCategory>> getStoreCategory(@PathVariable("categoryIdx") int categoryIdx) {
         try {
             List<GetStoreCategory> getStoreCategory = (List<GetStoreCategory>) storeProvider.getStoreCategory(categoryIdx);
@@ -98,8 +127,14 @@ public class StoreController {
         }
     }
 
+    /**
+     * 상점 메뉴 조회 API
+     * [GET] /stores/:storeIdx/menu
+     * @return BaseResponse<GetStoreMenu>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{storeIdx}/menu") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{storeIdx}/menu") // (GET) 127.0.0.1:9000/stores/:storeIdx/menu
     public BaseResponse<List<GetStoreMenu>> getStoreMenu(@PathVariable("storeIdx") int storeIdx) {
         try {
             List<GetStoreMenu> getStoreMenu = (List<GetStoreMenu>) storeProvider.getStoreMenu(storeIdx);
