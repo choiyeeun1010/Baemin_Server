@@ -122,9 +122,6 @@ public class UserController {
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            System.out.println("jwtIdx" + userIdxByJwt);
-            System.out.println("userIdx" + userIdx);
-
             List<GetUserAddress> getUserAddress = userProvider.getUserAddress(userIdx);
             return new BaseResponse<>(getUserAddress);
         } catch(BaseException exception){
@@ -277,12 +274,19 @@ public class UserController {
      * [POST] /users/address
      * @return BaseResponse<String>
      */
-    // Body
     @ResponseBody
     @PostMapping("/address")
     public BaseResponse<String> createUserAddress(@RequestBody PostUserAddress postUserAddress) {
         // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
         try {
+
+            int userIdx = postUserAddress.getUserIdx();
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             userService.createUserAddress(postUserAddress);
             String result = "";
             return new BaseResponse<>(result);
@@ -296,12 +300,18 @@ public class UserController {
      * [POST] /users/search
      * @return BaseResponse<String>
      */
-    // Body
     @ResponseBody
     @PostMapping("/search")
     public BaseResponse<String> createUserSearch(@RequestBody PostUserSearch postUserSearch) {
         // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
         try {
+            int userIdx = postUserSearch.getUserIdx();
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             userService.createUserSearch(postUserSearch);
             String result = "";
             return new BaseResponse<>(result);

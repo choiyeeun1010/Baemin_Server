@@ -36,8 +36,8 @@ com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
 com/example/demo/src/store/StoreProvider.java
  com.example.demo.src.store.StoreProvider
-com/example/demo/src/user/model/GetUserMain.java
- com.example.demo.src.user.model.GetUserMain
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
 com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
 com/example/demo/src/order/model/GetOrderReceipt.java
@@ -57,8 +57,8 @@ com/example/demo/src/user/model/PostLoginRes.java
  com.example.demo.src.user.model.PostLoginRes
 com/example/demo/src/store/model/GetStoreCategory.java
  com.example.demo.src.store.model.GetStoreCategory
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
+com/example/demo/src/user/model/GetUserCoupon.java
+ com.example.demo.src.user.model.GetUserCoupon
 com/example/demo/src/user/model/PatchUserReq.java
  com.example.demo.src.user.model.PatchUserReq
 com/example/demo/src/user/model/GetUserAddress.java
@@ -77,10 +77,10 @@ com/example/demo/src/user/model/GetUserLike.java
  com.example.demo.src.user.model.GetUserLike
 com/example/demo/src/store/model/GetStoreMenu.java
  com.example.demo.src.store.model.GetStoreMenu
-com/example/demo/src/user/model/GetUserCoupon.java
- com.example.demo.src.user.model.GetUserCoupon
-com/example/demo/src/order/OrderController.java
- com.example.demo.src.order.OrderController
+com/example/demo/src/user/model/GetUserMain.java
+ com.example.demo.src.user.model.GetUserMain
+com/example/demo/DemoApplication.java
+ com.example.demo.DemoApplication
 com/example/demo/src/store/StoreService.java
  com.example.demo.src.store.StoreService
 com/example/demo/src/user/model/GetUserReview.java
@@ -91,13 +91,13 @@ com/example/demo/src/user/model/GetUserSearch.java
  com.example.demo.src.user.model.GetUserSearch
 com/example/demo/src/user/model/GetUserRes.java
  com.example.demo.src.user.model.GetUserRes
-com/example/demo/DemoApplication.java
- com.example.demo.DemoApplication
 com/example/demo/src/user/UserDao.java
  com.example.demo.src.user.UserDao
 com/example/demo/src/user/UserService.java
  com.example.demo.src.user.UserService
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
+com/example/demo/src/order/OrderController.java
+ com.example.demo.src.order.OrderController
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
+com/example/demo/src/user/UserController.java
+ com.example.demo.src.user.UserController

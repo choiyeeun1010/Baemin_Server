@@ -47,6 +47,12 @@ public class OrderController {
     @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/orders/:userIdx
     public BaseResponse<List<GetOrder>> getOrder(@PathVariable("userIdx") int userIdx) {
         try {
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List<GetOrder> getOrder = (List<GetOrder>) orderProvider.getOrder(userIdx);
             return new BaseResponse<>(getOrder);
         } catch (BaseException exception) {
@@ -65,6 +71,12 @@ public class OrderController {
     @GetMapping("/{userIdx}/{orderIdx}") // (GET) 127.0.0.1:9000/orders/:userIdx/:orderIdx
     public BaseResponse<List<GetOrderReceipt>> getOrderReceipt(@PathVariable("userIdx") int userIdx, @PathVariable("orderIdx") int orderIdx) {
         try {
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List<GetOrderReceipt> getOrderReceipt = (List<GetOrderReceipt>) orderProvider.getOrderReceipt(userIdx, orderIdx);
             return new BaseResponse<>(getOrderReceipt);
         } catch (BaseException exception) {
