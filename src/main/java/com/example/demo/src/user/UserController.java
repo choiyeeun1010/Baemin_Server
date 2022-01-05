@@ -377,10 +377,10 @@ public class UserController {
     public BaseResponse<PostLoginRes> logIn(@RequestBody PostLoginReq postLoginReq){
         try{
             // TODO: 유저의 status ex) 비활성화된 유저, 탈퇴한 유저 등을 관리해주고 있다면 해당 부분에 대한 validation 처리도 해주셔야합니다.
-            if(postLoginReq.getId() == null){
+            if(postLoginReq.getId() == null || postLoginReq.getId().length() < 1){
                 return new BaseResponse<>(USERS_EMPTY_USER_ID);
             }
-            if(postLoginReq.getPassword() == null){
+            if(postLoginReq.getPassword() == null || postLoginReq.getPassword().length() < 1){
                 return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
             }
             // 존재하지 않는 아이디 및 비밀번호라면
