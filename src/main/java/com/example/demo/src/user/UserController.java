@@ -257,19 +257,19 @@ public class UserController {
             if(postUserReq.getUserID() == null){
                 return new BaseResponse<>(USERS_EMPTY_USER_ID);
             }
-            if(postUserReq.getUserID().length() > 15){
+            if(postUserReq.getUserID().length() < 3 || postUserReq.getUserID().length() > 15){
                 return new BaseResponse<>(POST_USERS_INVALID_ID);
             }
             if(postUserReq.getUserName() == null){
                 return new BaseResponse<>(POST_USERS_EMPTY_NAME);
             }
-            if(postUserReq.getUserName().length() > 10){
+            if(postUserReq.getUserName().length() < 2 || postUserReq.getUserName().length() > 10){
                 return new BaseResponse<>(POST_USERS_INVALID_NAME);
             }
             if(postUserReq.getUserNickName() == null){
                 return new BaseResponse<>(POST_USERS_EMPTY_NICKNAME);
             }
-            if(postUserReq.getUserNickName().length() > 10){
+            if(postUserReq.getUserNickName().length() < 2 || postUserReq.getUserNickName().length() > 10){
                 return new BaseResponse<>(POST_USERS_INVALID_NICKNAME);
             }
             if(postUserReq.getEmail() == null){
@@ -282,19 +282,19 @@ public class UserController {
             if(postUserReq.getPassword() == null){
                 return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
             }
-            if(postUserReq.getPassword().length() > 15){
+            if(postUserReq.getPassword().length() < 4 || postUserReq.getPassword().length() > 15){
                 return new BaseResponse<>(POST_USERS_INVALID_PASSWORD);
             }
             if(postUserReq.getUserPhone() == null){
                 return new BaseResponse<>(POST_USERS_EMPTY_PHONE);
             }
-            if(postUserReq.getUserPhone().length() > 13){
+            if(postUserReq.getUserPhone().length() < 8 || postUserReq.getUserPhone().length() > 13){
                 return new BaseResponse<>(POST_USERS_INVALID_PHONE);
             }
-            if(postUserReq.getMailAgree() == null){
+            if(postUserReq.getMailAgree() == null || postUserReq.getMailAgree().length() < 1){
                 return new BaseResponse<>(POST_USERS_EMPTY_MAILAGREE);
             }
-            if(postUserReq.getSmsAgree() == null){
+            if(postUserReq.getSmsAgree() == null || postUserReq.getSmsAgree().length() < 1){
                 return new BaseResponse<>(POST_USERS_EMPTY_SMSAGREE);
             }
 
@@ -318,7 +318,7 @@ public class UserController {
             if(postUserAddress.getAddress() == null){
                 return new BaseResponse<>(POST_USERS_EMPTY_ADDRESS);
             }
-            if(postUserAddress.getAddress().length() > 60){
+            if(postUserAddress.getAddress().length() < 5 || postUserAddress.getAddress().length() > 60){
                 return new BaseResponse<>(POST_USERS_INVALID_ADDRESS);
             }
             int userIdx = postUserAddress.getUserIdx();
@@ -349,7 +349,7 @@ public class UserController {
             if(postUserSearch.getSearchContents() == null){
                 return new BaseResponse<>(POST_USERS_EMPTY_CONTENTS);
             }
-            if(postUserSearch.getSearchContents().length() > 20){
+            if(postUserSearch.getSearchContents().length() < 1 || postUserSearch.getSearchContents().length() > 20){
                 return new BaseResponse<>(POST_USERS_INVALID_CONTENTS);
             }
             int userIdx = postUserSearch.getUserIdx();

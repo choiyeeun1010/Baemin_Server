@@ -93,11 +93,11 @@ com/example/demo/src/store/StoreController.java
  com.example.demo.src.store.StoreController
 com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
-com/example/demo/src/user/UserController.java
- com.example.demo.src.user.UserController
+com/example/demo/src/order/OrderController.java
+ com.example.demo.src.order.OrderController
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
-com/example/demo/src/order/OrderController.java
- com.example.demo.src.order.OrderController
+com/example/demo/src/user/UserController.java
+ com.example.demo.src.user.UserController

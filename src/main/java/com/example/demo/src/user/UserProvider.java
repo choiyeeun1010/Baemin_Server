@@ -21,7 +21,6 @@ public class UserProvider {
     private final UserDao userDao;
     private final JwtService jwtService;
 
-
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -72,7 +71,6 @@ public class UserProvider {
     public List<GetUserAddress> getUserAddress(int userIdx) throws BaseException {
         try {
             List<GetUserAddress> getUserAddress = userDao.getUserAddress(userIdx);
-            System.out.println(getUserAddress);
             return getUserAddress;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);

@@ -72,7 +72,6 @@ public class UserDao {
 
     public List<GetUserAddress> getUserAddress(int userIdx){
         String getUserAddressQuery = "select userIdx, userAddressIdx, addressName, address from UserAddress where userIdx = ?";
-        System.out.println(userIdx);
         int getUserAddressParams = userIdx;
         return this.jdbcTemplate.query(getUserAddressQuery,
                 (rs, rowNum) -> new GetUserAddress(
