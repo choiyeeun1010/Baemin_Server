@@ -253,13 +253,48 @@ public class UserController {
     @ResponseBody
     @PostMapping("")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
-        // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
+        if(postUserReq.getUserID() == null){
+            return new BaseResponse<>(USERS_EMPTY_USER_ID);
+        }
+        if(postUserReq.getUserID().length() > 15){
+            return new BaseResponse<>(POST_USERS_INVALID_ID);
+        }
+        if(postUserReq.getUserName() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_NAME);
+        }
+        if(postUserReq.getUserName().length() > 10){
+            return new BaseResponse<>(POST_USERS_INVALID_NAME);
+        }
+        if(postUserReq.getUserNickName() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_NICKNAME);
+        }
+        if(postUserReq.getUserNickName().length() > 10){
+            return new BaseResponse<>(POST_USERS_INVALID_NICKNAME);
+        }
         if(postUserReq.getEmail() == null){
             return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
         }
         //이메일 정규표현
         if(!isRegexEmail(postUserReq.getEmail())){
             return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
+        }
+        if(postUserReq.getPassword() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
+        }
+        if(postUserReq.getPassword().length() > 15){
+            return new BaseResponse<>(POST_USERS_INVALID_PASSWORD);
+        }
+        if(postUserReq.getUserPhone() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_PHONE);
+        }
+        if(postUserReq.getUserPhone().length() > 13){
+            return new BaseResponse<>(POST_USERS_INVALID_PHONE);
+        }
+        if(postUserReq.getMailAgree() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_MAILAGREE);
+        }
+        if(postUserReq.getSmsAgree() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_SMSAGREE);
         }
         try{
             PostUserRes postUserRes = userService.createUser(postUserReq);
@@ -288,7 +323,7 @@ public class UserController {
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             userService.createUserAddress(postUserAddress);
-            String result = "";
+            String result = postUserAddress.getAddress();
             return new BaseResponse<>(result);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
@@ -313,7 +348,7 @@ public class UserController {
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             userService.createUserSearch(postUserSearch);
-            String result = "";
+            String result = postUserSearch.getSearchContents();
             return new BaseResponse<>(result);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
