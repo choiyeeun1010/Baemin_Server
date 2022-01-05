@@ -253,50 +253,51 @@ public class UserController {
     @ResponseBody
     @PostMapping("")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
-        if(postUserReq.getUserID() == null){
-            return new BaseResponse<>(USERS_EMPTY_USER_ID);
-        }
-        if(postUserReq.getUserID().length() > 15){
-            return new BaseResponse<>(POST_USERS_INVALID_ID);
-        }
-        if(postUserReq.getUserName() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_NAME);
-        }
-        if(postUserReq.getUserName().length() > 10){
-            return new BaseResponse<>(POST_USERS_INVALID_NAME);
-        }
-        if(postUserReq.getUserNickName() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_NICKNAME);
-        }
-        if(postUserReq.getUserNickName().length() > 10){
-            return new BaseResponse<>(POST_USERS_INVALID_NICKNAME);
-        }
-        if(postUserReq.getEmail() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-        }
-        //이메일 정규표현
-        if(!isRegexEmail(postUserReq.getEmail())){
-            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-        }
-        if(postUserReq.getPassword() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
-        }
-        if(postUserReq.getPassword().length() > 15){
-            return new BaseResponse<>(POST_USERS_INVALID_PASSWORD);
-        }
-        if(postUserReq.getUserPhone() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_PHONE);
-        }
-        if(postUserReq.getUserPhone().length() > 13){
-            return new BaseResponse<>(POST_USERS_INVALID_PHONE);
-        }
-        if(postUserReq.getMailAgree() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_MAILAGREE);
-        }
-        if(postUserReq.getSmsAgree() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_SMSAGREE);
-        }
         try{
+            if(postUserReq.getUserID() == null){
+                return new BaseResponse<>(USERS_EMPTY_USER_ID);
+            }
+            if(postUserReq.getUserID().length() > 15){
+                return new BaseResponse<>(POST_USERS_INVALID_ID);
+            }
+            if(postUserReq.getUserName() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_NAME);
+            }
+            if(postUserReq.getUserName().length() > 10){
+                return new BaseResponse<>(POST_USERS_INVALID_NAME);
+            }
+            if(postUserReq.getUserNickName() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_NICKNAME);
+            }
+            if(postUserReq.getUserNickName().length() > 10){
+                return new BaseResponse<>(POST_USERS_INVALID_NICKNAME);
+            }
+            if(postUserReq.getEmail() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
+            }
+            //이메일 정규표현
+            if(!isRegexEmail(postUserReq.getEmail())){
+                return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
+            }
+            if(postUserReq.getPassword() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
+            }
+            if(postUserReq.getPassword().length() > 15){
+                return new BaseResponse<>(POST_USERS_INVALID_PASSWORD);
+            }
+            if(postUserReq.getUserPhone() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_PHONE);
+            }
+            if(postUserReq.getUserPhone().length() > 13){
+                return new BaseResponse<>(POST_USERS_INVALID_PHONE);
+            }
+            if(postUserReq.getMailAgree() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_MAILAGREE);
+            }
+            if(postUserReq.getSmsAgree() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_SMSAGREE);
+            }
+
             PostUserRes postUserRes = userService.createUser(postUserReq);
             return new BaseResponse<>(postUserRes);
         } catch(BaseException exception){
@@ -314,7 +315,12 @@ public class UserController {
     public BaseResponse<String> createUserAddress(@RequestBody PostUserAddress postUserAddress) {
         // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
         try {
-
+            if(postUserAddress.getAddress() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_ADDRESS);
+            }
+            if(postUserAddress.getAddress().length() > 60){
+                return new BaseResponse<>(POST_USERS_INVALID_ADDRESS);
+            }
             int userIdx = postUserAddress.getUserIdx();
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
