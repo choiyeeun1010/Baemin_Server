@@ -18,7 +18,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,8 +37,14 @@ public class OrderController {
         this.jwtService = jwtService;
     }
 
+    /**
+     * 전체 주문 내역 조회 API
+     * [GET] /orders/:userIdx
+     * @return BaseResponse<GetOrder>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/orders/:userIdx
     public BaseResponse<List<GetOrder>> getOrder(@PathVariable("userIdx") int userIdx) {
         try {
             List<GetOrder> getOrder = (List<GetOrder>) orderProvider.getOrder(userIdx);
@@ -49,8 +55,14 @@ public class OrderController {
         }
     }
 
+    /**
+     * 상세 주문 내역 조회 API
+     * [GET] /orders/:userIdx/:orderIdx
+     * @return BaseResponse<GetOrderReceipt>
+     */
+    // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}/{orderIdx}") // (GET) 127.0.0.1:9000/users/main/:userIdx
+    @GetMapping("/{userIdx}/{orderIdx}") // (GET) 127.0.0.1:9000/orders/:userIdx/:orderIdx
     public BaseResponse<List<GetOrderReceipt>> getOrderReceipt(@PathVariable("userIdx") int userIdx, @PathVariable("orderIdx") int orderIdx) {
         try {
             List<GetOrderReceipt> getOrderReceipt = (List<GetOrderReceipt>) orderProvider.getOrderReceipt(userIdx, orderIdx);
