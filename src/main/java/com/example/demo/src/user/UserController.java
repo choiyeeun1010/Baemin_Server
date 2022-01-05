@@ -346,6 +346,12 @@ public class UserController {
     public BaseResponse<String> createUserSearch(@RequestBody PostUserSearch postUserSearch) {
         // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
         try {
+            if(postUserSearch.getSearchContents() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_CONTENTS);
+            }
+            if(postUserSearch.getSearchContents().length() > 20){
+                return new BaseResponse<>(POST_USERS_INVALID_CONTENTS);
+            }
             int userIdx = postUserSearch.getUserIdx();
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
