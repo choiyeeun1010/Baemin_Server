@@ -15,23 +15,23 @@ public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public void setDataSource(DataSource dataSource){
+    public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<GetUserRes> getUsers(){
+    public List<GetUserRes> getUsers() {
         String getUsersQuery = "select userIdx, userID, userName, password, email from User";
         return this.jdbcTemplate.query(getUsersQuery,
-                (rs,rowNum) -> new GetUserRes(
+                (rs, rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
                         rs.getString("userID"),
                         rs.getString("userName"),
                         rs.getString("password"),
                         rs.getString("email"))
-                );
+        );
     }
 
-    public List<GetUserRes> getUsersByEmail(String email){
+    public List<GetUserRes> getUsersByEmail(String email) {
         String getUsersByEmailQuery = "select * from User where email =?";
         String getUsersByEmailParams = email;
         return this.jdbcTemplate.query(getUsersByEmailQuery,
@@ -44,7 +44,7 @@ public class UserDao {
                 getUsersByEmailParams);
     }
 
-    public GetUserRes getUser(int userIdx){
+    public GetUserRes getUser(int userIdx) {
         String getUserQuery = "select * from User where userIdx = ?";
         int getUserParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUserQuery,
@@ -57,20 +57,22 @@ public class UserDao {
                 getUserParams);
     }
 
-    public List<GetUserMain> getUserMain(int userIdx){
-        String getUserMainQuery = "select u.userIdx, u.addressName, s.categoryIdx, s.categoryName, s.categoryImage from StoreCategory s, UserAddress u where u.userIdx = ?";
+    public List<GetUserMain> getUserMain(int userIdx) {
+        String getUserMainQuery = "select userIdx, addressName from UserAddress where userIdx = ? ";
+        String getCategoryNameQuery = "select categoryName from StoreCategory ";
+        String getCategoryImageQuery = "select categoryImage from StoreCategory ";
+
         int getUserMainParams = userIdx;
         return this.jdbcTemplate.query(getUserMainQuery,
                 (rs, rowNum) -> new GetUserMain(
-                        rs.getInt("u.userIdx"),
-                        rs.getString("u.addressName"),
-                        rs.getInt("s.categoryIdx"),
-                        rs.getString("s.categoryName"),
-                        rs.getString("s.categoryImage")),
-                getUserMainParams);
+                        rs.getInt("userIdx"),
+                        rs.getString("addressName"),
+                        this.jdbcTemplate.query(getCategoryNameQuery, (rs1, rowNum2) -> new String(rs1.getString("categoryName"))),
+                        this.jdbcTemplate.query(getCategoryImageQuery, (rs2, rowNum1) -> new String(rs2.getString("categoryImage")))
+                ), getUserMainParams);
     }
 
-    public List<GetUserAddress> getUserAddress(int userIdx){
+    public List<GetUserAddress> getUserAddress(int userIdx) {
         String getUserAddressQuery = "select userIdx, userAddressIdx, addressName, address from UserAddress where userIdx = ?";
         int getUserAddressParams = userIdx;
         return this.jdbcTemplate.query(getUserAddressQuery,
@@ -82,7 +84,7 @@ public class UserDao {
                 ), getUserAddressParams);
     }
 
-    public List<GetUserSearch> getUserSearch(int userIdx){
+    public List<GetUserSearch> getUserSearch(int userIdx) {
         String getUserSearchQuery = "select userIdx, searchIdx, searchContents from Search where userIdx = ?";
         int getUserSearchParams = userIdx;
         return this.jdbcTemplate.query(getUserSearchQuery,
@@ -93,7 +95,7 @@ public class UserDao {
                 ), getUserSearchParams);
     }
 
-    public List<GetSearchRanking> getSearchRanking(){
+    public List<GetSearchRanking> getSearchRanking() {
         String getSearchRankingQuery = "select searchContents as \'검색내용\', count(searchContents) as \'검색수\', concat(date_format(now(), '%m.%d %H:00'), ' 기준') as \'기준\'\n" +
                 "from Search\n" +
                 "where createAt < date_format(now(), '%Y-%m-%d %H:00:00')\n" +
@@ -107,7 +109,7 @@ public class UserDao {
                 ));
     }
 
-    public List<GetUserLike> getUserLike(int userIdx){
+    public List<GetUserLike> getUserLike(int userIdx) {
         String getUserLikeQuery = "select l.storeIdx,\n" +
                 "       likeState '찜상태',\n" +
                 "       storeName as \'상점명\',\n" +
@@ -155,7 +157,7 @@ public class UserDao {
                 ), getUserLikeParams);
     }
 
-    public List<GetUserCoupon> getUserCoupon(int userIdx){
+    public List<GetUserCoupon> getUserCoupon(int userIdx) {
         String getUserCouponQuery = "select c.couponIdx,\n" +
                 "       c.couponName \'쿠폰이름\',\n" +
                 "       c.couponImage \'쿠폰이미지\',\n" +
@@ -176,7 +178,7 @@ public class UserDao {
                 ), getUserCouponParams);
     }
 
-    public List<GetUserReview> getUserReview(int userIdx){
+    public List<GetUserReview> getUserReview(int userIdx) {
         String getUserReviewQuery = "select ur.reviewIdx,\n" +
                 "       s.storeName \'상점명\',\n" +
                 "       ri.image \'리뷰이미지\',\n" +
@@ -203,7 +205,7 @@ public class UserDao {
                 ), getUserReviewParams);
     }
 
-    public int createUser(PostUserReq postUserReq){
+    public int createUser(PostUserReq postUserReq) {
         String createUserQuery = "insert into User (userID, userName, userNickName, email, password, userPhone, mailAgree, smsAgree) values (?,?,?,?,?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserID(), postUserReq.getUserName(), postUserReq.getUserNickName(),
                 postUserReq.getEmail(), postUserReq.getPassword(), postUserReq.getUserPhone(),
@@ -211,26 +213,26 @@ public class UserDao {
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
         String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery, int.class);
     }
 
-    public int createUserAddress(PostUserAddress postUserAddress){
+    public int createUserAddress(PostUserAddress postUserAddress) {
         String postUserAddressQuery = "insert into UserAddress (userIdx, addressName, address) values (?, ?, ?) ";
         Object[] postUserAddressParams = new Object[]{postUserAddress.getUserIdx(), postUserAddress.getAddressName(), postUserAddress.getAddress()};
         this.jdbcTemplate.update(postUserAddressQuery, postUserAddressParams);
         String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery, int.class);
     }
 
-    public int createUserSearch(PostUserSearch postUserSearch){
+    public int createUserSearch(PostUserSearch postUserSearch) {
         String postUserSearchQuery = "insert into Search (userIdx, searchContents) values (?, ?) ";
         Object[] postUserSearchParams = new Object[]{postUserSearch.getUserIdx(), postUserSearch.getSearchContents()};
         this.jdbcTemplate.update(postUserSearchQuery, postUserSearchParams);
         String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        return this.jdbcTemplate.queryForObject(lastInserIdQuery, int.class);
     }
 
-    public int checkEmail(String email){
+    public int checkEmail(String email) {
         String checkEmailQuery = "select exists(select email from User where email = ?)";
         String checkEmailParams = email;
         return this.jdbcTemplate.queryForObject(checkEmailQuery,
@@ -239,19 +241,19 @@ public class UserDao {
 
     }
 
-    public int modifyUserName(PatchUserReq patchUserReq){
+    public int modifyUserName(PatchUserReq patchUserReq) {
         String modifyUserNameQuery = "update User set userName = ? where userIdx = ? ";
         Object[] modifyUserNameParams = new Object[]{patchUserReq.getUserName(), patchUserReq.getUserIdx()};
 
-        return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
+        return this.jdbcTemplate.update(modifyUserNameQuery, modifyUserNameParams);
     }
 
-    public User getPwd(PostLoginReq postLoginReq){
+    public User getPwd(PostLoginReq postLoginReq) {
         String getPwdQuery = "select userIdx, userID, userName, password, email from User where userID = ?";
         String getPwdParams = postLoginReq.getId();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
-                (rs,rowNum)-> new User(
+                (rs, rowNum) -> new User(
                         rs.getInt("userIdx"),
                         rs.getString("userID"),
                         rs.getString("userName"),
@@ -261,11 +263,11 @@ public class UserDao {
 
     }
 
-    public GetSocial getIdx(String email){
+    public GetSocial getIdx(String email) {
         String getSocialQuery = "select userIdx from User where email = ? ";
         String getSocialParams = email;
 
         return this.jdbcTemplate.queryForObject(getSocialQuery,
-                (rs, rowNum)-> new GetSocial(rs.getInt("userIdx")), getSocialParams);
+                (rs, rowNum) -> new GetSocial(rs.getInt("userIdx")), getSocialParams);
     }
 }
