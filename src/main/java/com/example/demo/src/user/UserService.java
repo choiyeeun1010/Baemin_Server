@@ -185,50 +185,20 @@ public class UserService {
             if(responObj.get("email")!=null) {
                 email = responObj.get("email").toString();
                 System.out.println(email);
-
             }
-
             String profile = responObj.get("profile").toString();
             JSONObject profileObj = (JSONObject) jsonParser.parse(profile);
             userName = profileObj.get("nickname").toString();
-
-            /*
-            if(profileObj.get("profile_image")!=null) {
-                profilePhoto = profileObj.get("profile_image").toString();
-            }*/
-
         }
         catch (Exception e){
-            System.out.println("2");
-
             throw new BaseException(FAILED_TO_PARSE);
         }
 
-
         User existUserInfo = null;
-        //existUserInfo = userProvider.retrieveUserInfoBySocialId(socialId);
-
-//        if (existUserInfo == null) {
-//            UserInfo userInfo = new UserInfo(userName, null, null, deviceToken, null, null,null,socialId,email);
-//
-//            try {
-//                userInfo = userInfoRepository.save(userInfo);
-//            } catch (Exception exception) {
-//                throw new BaseException(FAILED_TO_SAVE_USERINFO);
-//            }
-//
-//            String jwt = jwtService.createJwt(userInfo.getUserIdx());
-//
-//            Integer useridx = userInfo.getUserIdx();
-//            return new PostUserSignInRes(useridx, jwt);
-//
-//        }
-       // else {
-            GetSocial getSocial = userDao.getIdx(email);
-            int userIdx = getSocial.getUserIdx();
-            String jwt = jwtService.createJwt(userIdx);
-            return new PostLoginRes(userIdx, jwt);
-        //}
+        GetSocial getSocial = userDao.getIdx(email);
+        int userIdx = getSocial.getUserIdx();
+        String jwt = jwtService.createJwt(userIdx);
+        return new PostLoginRes(userIdx, jwt);
     }
 
     /**
@@ -266,9 +236,9 @@ public class UserService {
 
             int responseCode = con.getResponseCode();
             InputStreamReader streamReader;
-            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 streamReader = new InputStreamReader(con.getInputStream());
-            } else { // 에러 발생
+            } else {
                 streamReader = new InputStreamReader(con.getErrorStream());
             }
 
@@ -326,7 +296,6 @@ public class UserService {
             if(responObj.get("email")!=null) {
                 email = responObj.get("email").toString();
                 System.out.println(email);
-
             }
 
             String profile = responObj.get("profile").toString();
@@ -339,42 +308,15 @@ public class UserService {
             if(responObj.get("mobile")!=null) {
                 phoneNumber = responObj.get("mobile").toString();
             }
-            /*
-            if(profileObj.get("profile_image")!=null) {
-                profilePhoto = profileObj.get("profile_image").toString();
-            }*/
-
         }
         catch (Exception e){
-            System.out.println("2");
-
             throw new BaseException(FAILED_TO_PARSE);
         }
 
-
         User existUserInfo = null;
-        //existUserInfo = userProvider.retrieveUserInfoBySocialId(socialId);
-
-//        if (existUserInfo == null) {
-//            UserInfo userInfo = new UserInfo(userName, null, null, deviceToken, null, null,null,socialId,email);
-//
-//            try {
-//                userInfo = userInfoRepository.save(userInfo);
-//            } catch (Exception exception) {
-//                throw new BaseException(FAILED_TO_SAVE_USERINFO);
-//            }
-//
-//            String jwt = jwtService.createJwt(userInfo.getUserIdx());
-//
-//            Integer useridx = userInfo.getUserIdx();
-//            return new PostUserSignInRes(useridx, jwt);
-//
-//        }
-        // else {
         GetSocial getSocial = userDao.getIdx(email);
         int userIdx = getSocial.getUserIdx();
         String jwt = jwtService.createJwt(userIdx);
         return new PostLoginRes(userIdx, jwt);
-        //}
     }
 }
